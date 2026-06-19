@@ -1,0 +1,322 @@
+/* 
+    -------------------------------------------------------------------------
+    ZIEXAM AI - SYSTEM INFO MODULE
+    File: public/assets/css/admin-system-info.css
+    -------------------------------------------------------------------------
+*/
+
+/* =========================================
+   1. LAYOUT & GRID SYSTEM
+   ========================================= */
+
+.sys-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.5rem;
+}
+
+.sys-col-left { grid-column: span 8; }
+.sys-col-right { grid-column: span 4; }
+
+@media (max-width: 991px) {
+    .sys-col-left, .sys-col-right { grid-column: span 12; }
+}
+
+/* =========================================
+   2. CARD STYLING
+   ========================================= */
+
+.sys-card {
+    background: var(--zi-bg-card);
+    border: 1px solid var(--zi-border-color);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    height: 100%;
+    margin-bottom: 0;
+    box-shadow: var(--zi-shadow-1);
+    transition: box-shadow 0.2s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.sys-card:hover { box-shadow: var(--zi-shadow-2); }
+
+.sys-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--zi-border-color);
+}
+
+.sys-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--zi-text-main);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0;
+}
+
+.sys-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--zi-bg-hover);
+    color: var(--zi-text-muted);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.sys-icon i { margin-bottom: 0; }
+
+/* =========================================
+   3. INFO LISTS & ITEMS
+   ========================================= */
+
+.sys-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+}
+
+.sys-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.925rem;
+}
+
+.sys-label {
+    color: var(--zi-text-muted);
+    font-weight: 500;
+    margin-right: 1rem;
+    white-space: nowrap;
+}
+
+.sys-value {
+    color: var(--zi-text-main);
+    font-weight: 600;
+    font-family: 'Plus Jakarta Sans', monospace;
+    text-align: right;
+}
+
+/* =========================================
+   4. BADGES & STATUS INDICATORS
+   ========================================= */
+
+.sys-badge {
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+}
+
+.badge-ok { background: var(--zi-primary-50); color: var(--zi-primary-800); }
+.badge-warn { background: #fff7ed; color: #c2410c; }
+.badge-err { background: #fef2f2; color: #b91c1c; }
+
+/* =========================================
+   5. CACHE BUTTONS
+   ========================================= */
+
+.btn-cache {
+    background: var(--zi-bg-body);
+    border: 1px solid var(--zi-border-color);
+    border-radius: 12px;
+    padding: 1.25rem;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-cache:hover {
+    border-color: var(--zi-text-muted);
+    background: var(--zi-bg-card);
+    transform: translateY(-2px);
+    box-shadow: var(--zi-shadow-1);
+}
+
+.btn-cache:active { transform: translateY(0); }
+
+.btn-cache .sys-icon {
+    width: 42px; height: 42px;
+    font-size: 1.25rem;
+    border-radius: 12px;
+}
+
+.btn-cache span {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--zi-text-main);
+}
+
+/* =========================================
+   6. EXTENSION CHIPS
+   ========================================= */
+
+.ext-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-content: flex-start;
+    max-height: 220px;
+    overflow-y: auto;
+}
+
+.ext-chip {
+    padding: 6px 12px;
+    background: var(--zi-bg-body);
+    border: 1px solid var(--zi-border-color);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--zi-text-body);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: 0.2s;
+}
+
+.ext-chip:hover { border-color: var(--zi-text-muted); }
+.ext-chip.active i { color: var(--zi-live); }
+.ext-chip.inactive i { color: var(--zi-risk); }
+
+/* =========================================
+   7. UTILITY & HELPER CLASSES
+   ========================================= */
+
+.status-circle {
+    width: 96px;
+    height: 96px;
+}
+
+.icon-large { font-size: 2.5rem; }
+.icon-dot { font-size: 6px; }
+
+.mw-200 { max-width: 200px; }
+.opacity-10 { opacity: 0.1; }
+.lh-relax { line-height: 1.4; }
+.font-inherit { font-family: inherit; }
+
+/* Font Sizes */
+.fs-07 { font-size: 0.7rem !important; }
+.fs-095 { font-size: 0.95rem !important; }
+
+/* Colors */
+.bg-blue-subtle { background-color: #eff6ff !important; }
+.text-blue { color: #3b82f6 !important; }
+
+.bg-green-subtle { background-color: #f0fdf4 !important; }
+.text-green { color: #16a34a !important; }
+
+.bg-orange-subtle { background-color: #fff7ed !important; }
+.text-orange { color: #ea580c !important; }
+
+.bg-purple-subtle { background-color: #faf5ff !important; }
+.text-purple { color: #9333ea !important; }
+
+.bg-primary-subtle { background-color: var(--zi-primary-50) !important; }
+.text-primary { color: var(--zi-primary-900) !important; }
+
+/* =========================================
+   8. DARK MODE OVERRIDES
+   ========================================= */
+
+[data-bs-theme="dark"] .sys-card {
+    background: #1e293b;
+    border-color: #334155;
+}
+/* =========================================
+   9. UPDATE CENTER SPECIFIC
+   ========================================= */
+
+.update-upload-zone {
+    border: 2px dashed var(--zi-border-color);
+    background-color: var(--zi-bg-body);
+    border-radius: var(--radius);
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.update-upload-zone:hover {
+    border-color: var(--zi-primary-500, #3b82f6);
+    background-color: var(--zi-primary-50, #eff6ff);
+}
+
+.update-icon-wrapper {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin: 0 auto 1.5rem auto;
+    font-size: 2rem;
+}
+
+.update-warning-box {
+    background-color: #fff7ed;
+    border: 1px solid #fed7aa;
+    color: #9a3412;
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    display: flex;
+    gap: 0.75rem;
+    align-items: start;
+    margin-bottom: 1.5rem;
+}
+
+/* Dark Mode Overrides for Update Center */
+[data-bs-theme="dark"] .update-upload-zone {
+    background-color: rgba(30, 41, 59, 0.5);
+    border-color: #475569;
+}
+
+[data-bs-theme="dark"] .update-upload-zone:hover {
+    border-color: #60a5fa;
+    background-color: rgba(59, 130, 246, 0.1);
+}
+
+[data-bs-theme="dark"] .update-warning-box {
+    background-color: rgba(67, 20, 7, 0.3);
+    border-color: #7c2d12;
+    color: #fdba74;
+}
+
+[data-bs-theme="dark"] .sys-card-header { border-color: #334155; }
+[data-bs-theme="dark"] .sys-icon { background: #334155; color: #e2e8f0; }
+[data-bs-theme="dark"] .btn-cache { background: #0f172a; border-color: #334155; }
+[data-bs-theme="dark"] .btn-cache:hover { background: #1e293b; border-color: #94a3b8; }
+[data-bs-theme="dark"] .ext-chip { background: #0f172a; border-color: #334155; color: #cbd5e1; }
+
+[data-bs-theme="dark"] .badge-warn { background: rgba(234, 88, 12, 0.2); color: #fb923c; }
+[data-bs-theme="dark"] .badge-err { background: rgba(220, 38, 38, 0.2); color: #fca5a5; }
+[data-bs-theme="dark"] .badge-ok { background: rgba(6, 78, 59, 0.5); color: #6ee7b7; }
+
+/* Dark Mode Utilities */
+[data-bs-theme="dark"] .bg-blue-subtle { background-color: rgba(59, 130, 246, 0.15) !important; }
+[data-bs-theme="dark"] .text-blue { color: #60a5fa !important; }
+[data-bs-theme="dark"] .bg-green-subtle { background-color: rgba(22, 163, 74, 0.15) !important; }
+[data-bs-theme="dark"] .text-green { color: #4ade80 !important; }
+[data-bs-theme="dark"] .bg-orange-subtle { background-color: rgba(234, 88, 12, 0.15) !important; }
+[data-bs-theme="dark"] .text-orange { color: #fdba74 !important; }
+[data-bs-theme="dark"] .bg-purple-subtle { background-color: rgba(147, 51, 234, 0.15) !important; }
+[data-bs-theme="dark"] .text-purple { color: #c084fc !important; }
+[data-bs-theme="dark"] .bg-light { background-color: #334155 !important; color: #f8fafc !important; border-color: #475569 !important; }

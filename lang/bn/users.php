@@ -1,0 +1,140 @@
+<?php
+
+return [
+    // Page Titles & Headers
+    'title_list' => 'সকল ব্যবহারকারী',
+    'title_active' => 'সক্রিয় ব্যবহারকারী',
+    'title_banned' => 'নিষিদ্ধ ব্যবহারকারী',
+    'title_unverified_email' => 'অযাচাইকৃত ইমেল ব্যবহারকারী',
+    'title_unverified_mobile' => 'অযাচাইকৃত মোবাইল ব্যবহারকারী',
+    'subtitle_list' => 'সিস্টেমে নিবন্ধিত সকল ব্যবহারকারী পরিচালনা এবং পর্যবেক্ষণ করুন।',
+    'title_show' => 'কনসোল: :name',
+    'title_notifications' => 'বিজ্ঞপ্তি পাঠান',
+    'subtitle_notifications' => 'আপনার ব্যবহারকারী বেসে ইমেল বা এসএমএস এর মাধ্যমে বার্তা রচনা করুন এবং পাঠান।',
+
+    // KPI Labels
+    'kpi_total_users' => 'মোট ব্যবহারকারী',
+    'kpi_unverified_emails' => 'অযাচাইকৃত ইমেল',
+    'kpi_banned_users' => 'নিষিদ্ধ ব্যবহারকারী',
+    'kpi_total_transactions' => 'মোট লেনদেন',
+    'kpi_exams_taken' => 'সম্পন্ন পরীক্ষা',
+    'kpi_payment_count' => 'পেমেন্ট সংখ্যা',
+
+    // Buttons
+    'btn_filter' => 'ফিল্টার ও অনুসন্ধান',
+    'btn_add_new' => 'নতুন যোগ করুন',
+    'btn_view_details' => 'বিস্তারিত দেখুন',
+    'btn_edit' => 'তথ্য পরিবর্তন',
+    'btn_back' => 'তালিকায় ফিরে যান',
+    'btn_logins' => 'লগইন লগ',
+    'btn_login_as' => 'হিসেবে লগইন করুন',
+    'btn_save' => 'পরিবর্তন সংরক্ষণ করুন',
+    'btn_clear_all' => 'সব মুছে ফেলুন',
+    'btn_send_now' => 'এখনই পাঠান',
+    'btn_cancel' => 'বাতিল',
+    'btn_apply_filters' => 'ফিল্টার প্রয়োগ করুন',
+    
+    // Table Headers
+    'col_user' => 'ব্যবহারকারী',
+    'col_contact' => 'ইমেল / মোবাইল',
+    'col_country' => 'দেশ',
+    'col_joined' => 'যোগদানের তারিখ',
+    'col_action' => 'অ্যাকশন',
+    'col_date' => 'তারিখ',
+    'col_plan' => 'প্ল্যান / আইটেম',
+    'col_amount' => 'পরিমাণ',
+    'col_status' => 'অবস্থা',
+
+    // Form Labels
+    'label_name' => 'পুরো নাম',
+    'label_email' => 'ইমেল ঠিকানা',
+    'label_mobile' => 'মোবাইল নম্বর',
+    'label_country' => 'দেশ',
+    'label_address' => 'রাস্তার ঠিকানা',
+    'label_city' => 'শহর',
+    'label_state' => 'বিভাগ / জেলা',
+    'label_zip' => 'জিপ কোড',
+    'label_role' => 'সিস্টেম রোল',
+    'label_password' => 'পাসওয়ার্ড',
+    'label_password_optional' => 'নতুন পাসওয়ার্ড (ঐচ্ছিক)',
+    'label_password_placeholder' => 'বর্তমান পাসওয়ার্ড রাখতে খালি রাখুন',
+    'label_search' => 'নাম বা ইমেল দিয়ে খুঁজুন...',
+    'label_search_users' => 'ব্যবহারকারী খুঁজুন',
+    'label_subject' => 'বিষয়',
+    'label_message' => 'বার্তা',
+
+    // Statuses
+    'status_verified' => 'যাচাইকৃত',
+    'status_unverified' => 'অযাচাইকৃত',
+    'status_banned' => 'নিষিদ্ধ',
+    'status_active' => 'সক্রিয় ব্যবহারকারী',
+    'status_paid' => 'পরিশোধিত',
+    'status_pending' => 'অপেক্ষমান',
+    'status_failed' => 'ব্যর্থ',
+    'status_open_tickets' => ':countটি খোলা টিকিট',
+
+    // Sections (Show Page)
+    'sect_profile' => 'প্রোফাইল তথ্য',
+    'sect_transactions' => 'সাম্প্রতিক লেনদেন',
+    'sect_notifications' => 'বিজ্ঞপ্তি সমূহ',
+    'sect_support' => 'সাপোর্ট ইতিহাস',
+    'sect_actions' => 'অ্যাকশন',
+    'sect_login_history' => 'লগইন ইতিহাস',
+    'sect_email_status' => 'ইমেল অবস্থা',
+    'sect_mobile_status' => 'মোবাইল অবস্থা',
+    'sect_current_plan' => 'বর্তমান প্ল্যান',
+
+    // Alerts & Confirmations
+    'confirm_title' => 'আপনি কি নিশ্চিত?',
+    'confirm_text' => 'এই কাজটি আর ফিরে আনা সম্ভব নয়।',
+    'confirm_yes' => 'হ্যাঁ, এগিয়ে যান!',
+    'confirm_delete_title' => 'বিজ্ঞপ্তি মুছে ফেলবেন?',
+    'confirm_delete_text' => "আপনি এটি পরে পুনরুদ্ধার করতে পারবেন না!",
+    'confirm_clear_title' => 'সব বিজ্ঞপ্তি মুছে ফেলবেন?',
+    'confirm_clear_text' => 'এটি এই ব্যবহারকারীর জন্য স্থায়ীভাবে সব বিজ্ঞপ্তি সরিয়ে দেবে।',
+    'confirm_ban_title' => 'ব্যবহারকারীকে নিষিদ্ধ করবেন?',
+    'confirm_lift_ban_title' => 'নিষেধাজ্ঞা তুলে নেবেন?',
+    'confirm_ban_text' => 'আপনি কি নিশ্চিত যে আপনি এই ব্যবহারকারীর অবস্থা পরিবর্তন করতে চান?',
+    'confirm_send_title' => 'পাঠানো নিশ্চিত করুন',
+    'confirm_send_text' => 'আপনি এই বিজ্ঞপ্তি ক্যাম্পেইনটি শুরু করতে যাচ্ছেন।',
+    'action_ban' => 'ব্যবহারকারী নিষিদ্ধ করুন',
+    'action_unban' => 'নিষেধাজ্ঞা তুলে নিন',
+
+    // Messages
+    'msg_user_created' => 'ব্যবহারকারী সফলভাবে তৈরি করা হয়েছে।',
+    'msg_user_updated' => 'তথ্য সফলভাবে আপডেট করা হয়েছে।',
+    'msg_user_banned' => 'ব্যবহারকারীকে নিষিদ্ধ করা হয়েছে।',
+    'msg_user_activated' => 'ব্যবহারকারীকে সক্রিয় করা হয়েছে।',
+    'msg_plan_assigned' => 'প্ল্যান সফলভাবে নির্ধারণ করা হয়েছে।',
+    'msg_unauthorized_role' => 'অননুমোদিত রোল অ্যাসাইনমেন্ট।',
+    'msg_unauthorized_action' => 'অননুমোদিত অ্যাকশন।',
+    'msg_cannot_ban' => 'এই অ্যাকাউন্টটি নিষিদ্ধ করা সম্ভব নয়।',
+    'msg_cannot_impersonate' => 'সুপার অ্যাডমিন হিসেবে লগইন করা সম্ভব নয়।',
+
+    // Notifications Page
+    'step_audience' => '১. শ্রোতা নির্বাচন করুন',
+    'opt_all_users' => 'সকল ব্যবহারকারী',
+    'opt_all_users_desc' => 'সবাইকে পাঠান',
+    'opt_specific_users' => 'নির্দিষ্ট ব্যবহারকারী',
+    'opt_specific_users_desc' => 'তালিকা থেকে ম্যানুয়ালি নির্বাচন করুন',
+    'step_channels' => '২. যোগাযোগের মাধ্যম',
+    'chan_email' => 'ইমেল বিজ্ঞপ্তি',
+    'chan_sms' => 'এসএমএস বিজ্ঞপ্তি',
+    'step_content' => 'ইমেল কন্টেন্ট',
+    'label_body' => 'বার্তার মূল অংশ',
+    'label_sms_content' => 'এসএমএস বার্তার কন্টেন্ট',
+
+    // Empty States
+    'empty_title' => 'কোন ব্যবহারকারী পাওয়া যায়নি',
+    'empty_subtitle' => 'অনুসন্ধান বা ফিল্টার অপশন পরিবর্তন করে চেষ্টা করুন।',
+    'empty_transactions' => 'কোন লেনদেনের ইতিহাস নেই।',
+    'empty_notifications' => 'কোন সাম্প্রতিক বিজ্ঞপ্তি নেই।',
+    'empty_support' => 'কোন সাপোর্ট টিকিট নেই।',
+    'empty_logins' => 'এই ব্যবহারকারীর জন্য কোন লগইন ইতিহাস নেই।',
+
+    // Modals
+    'modal_create_title' => 'নতুন সিস্টেম ব্যবহারকারী তৈরি করুন',
+    'modal_create_btn' => 'ব্যবহারকারী তৈরি করুন',
+    'modal_edit_title' => 'ব্যবহারকারী তথ্য সম্পাদনা',
+    'modal_edit_btn' => 'আপডেট করুন',
+];

@@ -1,0 +1,314 @@
+:root {
+    /* Reference Variables from user.css */
+    --zi-primary-600: #059669;
+    --zi-primary-700: #047857;
+    --zi-text-main:   #0f172a;
+    --zi-text-muted:  #64748b;
+    --zi-border:      #E2E8F0;
+    --zi-bg-hover:    #F1F5F9;
+    --zi-radius:      12px;
+}
+
+/* --- 1. Layout & Grid --- */
+
+.exam-list-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+/* --- 2. Exam Card Container --- */
+
+.exam-card-user {
+    background: white;
+    border: 1px solid var(--zi-border);
+    border-radius: var(--zi-radius);
+    overflow: hidden;
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+}
+
+.exam-card-user:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    border-color: #cbd5e1;
+    transform: translateY(-4px);
+}
+
+/* --- 3. Card Headers (Icon vs Banner) --- */
+
+/* Fallback Icon Header */
+.exam-icon-header {
+    height: 150px;
+    display: grid;
+    place-items: center;
+    margin-bottom: 0;
+    font-size: 3rem;
+    border-bottom: 1px solid var(--zi-border);
+}
+
+/* Dynamic Banner Header */
+.exam-banner-header {
+    height: 150px;
+    width: 100%;
+    overflow: hidden;
+    border-bottom: 1px solid var(--zi-border);
+    background-color: #f8fafc;
+    position: relative;
+}
+
+.exam-banner-header img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.exam-card-user:hover .exam-banner-header img {
+    transform: scale(1.05);
+}
+
+/* Icon Colors (Matching theme) */
+.icon-blue { background-color: #e0f2fe; color: #3b82f6; }
+.icon-green { background-color: #d1fae5; color: #10b981; }
+.icon-yellow { background-color: #fef9c3; color: #eab308; }
+.icon-orange { background-color: #ffedd5; color: #f97316; }
+
+
+/* --- 4. Card Content --- */
+
+.exam-card-content {
+    padding: 20px 20px 0;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.exam-meta-tags {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.status-tag {
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Status Colors */
+.tag-available { background: #ecfdf5; color: #059669; } 
+.tag-ongoing { background: #fffbeb; color: #d97706; }
+.tag-completed { background: #eff6ff; color: #2563eb; }
+.tag-upcoming { background: #fef2f2; color: #dc2626; } 
+
+.exam-title-wrapper {
+    margin-bottom: 8px;
+    height: 3rem; /* Enforce 2 lines height for alignment */
+    overflow: hidden;
+}
+
+.exam-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--zi-text-main);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.exam-description {
+    font-size: 0.85rem;
+    color: var(--zi-text-muted);
+    margin-bottom: 15px;
+}
+
+.exam-stats-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 0.85rem;
+    color: var(--zi-text-muted);
+    padding-bottom: 15px;
+    margin-bottom: 0;
+    border-bottom: 1px solid var(--zi-border);
+}
+
+.exam-stats-info i {
+    margin-right: 5px;
+    color: #94a3b8;
+}
+
+/* --- 5. Progress Bars --- */
+
+.progress-bar-details {
+    padding-bottom: 15px;
+    margin-bottom: 0;
+    border-bottom: 1px solid var(--zi-border);
+}
+
+.progress-label-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--zi-text-main);
+    margin-bottom: 8px;
+}
+
+.progress-bar-wrap {
+    height: 8px;
+    background: var(--zi-bg-hover);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: var(--zi-primary-600);
+    border-radius: 10px;
+    transition: width 0.5s ease-out;
+}
+
+/* --- 6. Action Buttons --- */
+
+.exam-card-actions {
+    padding: 20px;
+    margin-top: auto;
+}
+
+.btn-exam-action {
+    display: flex;
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+}
+
+.btn-start { 
+    background: var(--zi-primary-600); 
+    color: white; 
+    box-shadow: 0 4px 6px -1px rgba(5, 150, 105, 0.2);
+}
+.btn-start:hover { 
+    background: var(--zi-primary-700); 
+    box-shadow: 0 4px 12px -1px rgba(5, 150, 105, 0.4);
+}
+
+.btn-view { 
+    background: white; 
+    color: var(--zi-text-main); 
+    border-color: var(--zi-border);
+}
+.btn-view:hover { 
+    background: var(--zi-bg-hover); 
+    border-color: #cbd5e1;
+}
+
+.btn-view[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: var(--zi-bg-hover);
+    color: var(--zi-text-muted);
+}
+
+/* --- 7. Tab Navigation --- */
+
+.tab-nav-wrapper {
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--zi-border);
+    padding-bottom: 1px;
+}
+
+.tab-nav {
+    display: inline-flex;
+    gap: 20px;
+}
+
+.tab-item {
+    padding: 10px 5px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--zi-text-muted);
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s;
+}
+
+.tab-item:hover {
+    color: var(--zi-text-main);
+}
+
+.tab-item.active {
+    color: var(--zi-primary-600);
+}
+
+.tab-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--zi-primary-600);
+    border-radius: 2px 2px 0 0;
+}
+
+/* --- 8. Empty State --- */
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: white;
+    border-radius: var(--zi-radius);
+    border: 1px dashed var(--zi-border);
+}
+
+.empty-state p {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--zi-text-muted);
+}
+
+/* --- Pricing Tags --- */
+
+.pricing-tag {
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Free Badge - Blue/Teal style */
+.tag-free {
+    background-color: #e0f2fe; 
+    color: #0284c7; 
+    border: 1px solid #bae6fd;
+}
+
+/* Purchased Badge - Gold/Purple style (Premium look) */
+.tag-purchased {
+    background-color: #f3e8ff; 
+    color: #7e22ce; 
+    border: 1px solid #d8b4fe;
+}

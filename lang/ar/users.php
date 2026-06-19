@@ -1,0 +1,140 @@
+<?php
+
+return [
+    // Page Titles & Headers
+    'title_list' => 'كافة المستخدمين',
+    'title_active' => 'المستخدمون النشطون',
+    'title_banned' => 'المستخدمون المحظورون',
+    'title_unverified_email' => 'مستخدمون ببريد غير محقق',
+    'title_unverified_mobile' => 'مستخدمون بجوال غير محقق',
+    'subtitle_list' => 'إدارة ومراقبة جميع المستخدمين المسجلين في النظام.',
+    'title_show' => 'وحدة التحكم: :name',
+    'title_notifications' => 'إرسال الإشعارات',
+    'subtitle_notifications' => 'تأليف وإرسال رسائل عبر البريد الإلكتروني أو الرسائل النصية إلى قاعدة المستخدمين الخاصة بك.',
+
+    // KPI Labels
+    'kpi_total_users' => 'إجمالي المستخدمين',
+    'kpi_unverified_emails' => 'إيميلات غير محققة',
+    'kpi_banned_users' => 'مستخدمون محظورون',
+    'kpi_total_transactions' => 'إجمالي المعاملات',
+    'kpi_exams_taken' => 'الاختبارات المنجزة',
+    'kpi_payment_count' => 'عدد الدفعات',
+
+    // Buttons
+    'btn_filter' => 'تصفية وبحث',
+    'btn_add_new' => 'إضافة جديد',
+    'btn_view_details' => 'عرض التفاصيل',
+    'btn_edit' => 'تعديل التفاصيل',
+    'btn_back' => 'العودة لقائمة المستخدمين',
+    'btn_logins' => 'سجلات الدخول',
+    'btn_login_as' => 'الدخول كـ',
+    'btn_save' => 'حفظ التغييرات',
+    'btn_clear_all' => 'مسح الكل',
+    'btn_send_now' => 'إرسال الآن',
+    'btn_cancel' => 'إلغاء',
+    'btn_apply_filters' => 'تطبيق الفلاتر',
+    
+    // Table Headers
+    'col_user' => 'المستخدم',
+    'col_contact' => 'البريد / الجوال',
+    'col_country' => 'الدولة',
+    'col_joined' => 'انضم في',
+    'col_action' => 'الإجراء',
+    'col_date' => 'التاريخ',
+    'col_plan' => 'الخطة / البند',
+    'col_amount' => 'المبلغ',
+    'col_status' => 'الحالة',
+
+    // Form Labels
+    'label_name' => 'الاسم الكامل',
+    'label_email' => 'عنوان البريد الإلكتروني',
+    'label_mobile' => 'رقم الجوال',
+    'label_country' => 'الدولة',
+    'label_address' => 'عنوان الشارع',
+    'label_city' => 'المدينة',
+    'label_state' => 'المنطقة / الولاية',
+    'label_zip' => 'الرمز البريدي',
+    'label_role' => 'دور النظام',
+    'label_password' => 'كلمة المرور',
+    'label_password_optional' => 'كلمة مرور جديدة (اختياري)',
+    'label_password_placeholder' => 'اتركه فارغاً للحفاظ على الحالية',
+    'label_search' => 'ابحث بالاسم أو البريد...',
+    'label_search_users' => 'البحث في المستخدمين',
+    'label_subject' => 'الموضوع',
+    'label_message' => 'الرسالة',
+
+    // Statuses
+    'status_verified' => 'تم التحقق',
+    'status_unverified' => 'غير محقق',
+    'status_banned' => 'محظور',
+    'status_active' => 'مستخدم نشط',
+    'status_paid' => 'مدفوع',
+    'status_pending' => 'قيد الانتظار',
+    'status_failed' => 'فاشل',
+    'status_open_tickets' => 'تذكرة مفتوحة واحدة|:count تذاكر مفتوحة',
+
+    // Sections (Show Page)
+    'sect_profile' => 'معلومات الملف الشخصي',
+    'sect_transactions' => 'المعاملات الأخيرة',
+    'sect_notifications' => 'الإشعارات',
+    'sect_support' => 'سجل الدعم',
+    'sect_actions' => 'الإجراءات',
+    'sect_login_history' => 'سجل الدخول',
+    'sect_email_status' => 'حالة البريد الإلكتروني',
+    'sect_mobile_status' => 'حالة الجوال',
+    'sect_current_plan' => 'الخطة الحالية',
+
+    // Alerts & Confirmations
+    'confirm_title' => 'هل أنت متأكد؟',
+    'confirm_text' => 'لا يمكن التراجع عن هذا الإجراء.',
+    'confirm_yes' => 'نعم، استمر!',
+    'confirm_delete_title' => 'حذف الإشعار؟',
+    'confirm_delete_text' => "لن تتمكن من استعادة هذا الإشعار لاحقاً!",
+    'confirm_clear_title' => 'مسح كافة الإشعارات؟',
+    'confirm_clear_text' => 'سيؤدي هذا إلى إزالة جميع الإشعارات لهذا المستخدم بشكل نهائي.',
+    'confirm_ban_title' => 'حظر المستخدم؟',
+    'confirm_lift_ban_title' => 'رفع الحظر؟',
+    'confirm_ban_text' => 'هل أنت متأكد أنك تريد تغيير حالة هذا المستخدم؟',
+    'confirm_send_title' => 'تأكيد الإرسال',
+    'confirm_send_text' => 'أنت على وشك إطلاق حملة الإشعارات هذه.',
+    'action_ban' => 'حظر المستخدم',
+    'action_unban' => 'إلغاء حظر المستخدم',
+
+    // Messages
+    'msg_user_created' => 'تم إنشاء المستخدم بنجاح.',
+    'msg_user_updated' => 'تم تحديث بيانات المستخدم بنجاح.',
+    'msg_user_banned' => 'تم حظر المستخدم.',
+    'msg_user_activated' => 'تم تفعيل المستخدم.',
+    'msg_plan_assigned' => 'تم تعيين الخطة بنجاح.',
+    'msg_unauthorized_role' => 'غير مصرح بتعيين هذا الدور.',
+    'msg_unauthorized_action' => 'إجراء غير مصرح به.',
+    'msg_cannot_ban' => 'لا يمكن حظر هذا الحساب.',
+    'msg_cannot_impersonate' => 'لا يمكن الدخول كمسؤول نظام.',
+
+    // Notifications Page
+    'step_audience' => '1. اختيار الجمهور',
+    'opt_all_users' => 'جميع المستخدمين',
+    'opt_all_users_desc' => 'إرسال للجميع',
+    'opt_specific_users' => 'مستخدمين محددين',
+    'opt_specific_users_desc' => 'الاختيار يدوياً من القائمة',
+    'step_channels' => '2. قنوات الاتصال',
+    'chan_email' => 'إشعار بالبريد الإلكتروني',
+    'chan_sms' => 'إشعار بالرسائل النصية (SMS)',
+    'step_content' => 'محتوى البريد الإلكتروني',
+    'label_body' => 'محتوى الرسالة',
+    'label_sms_content' => 'محتوى رسالة SMS',
+
+    // Empty States
+    'empty_title' => 'لم يتم العثور على مستخدمين',
+    'empty_subtitle' => 'حاول تعديل خيارات البحث أو التصفية.',
+    'empty_transactions' => 'لا يوجد سجل معاملات متاح.',
+    'empty_notifications' => 'لا توجد إشعارات حديثة.',
+    'empty_support' => 'لا توجد تذاكر دعم متاحة.',
+    'empty_logins' => 'لا يوجد سجل دخول متاح لهذا المستخدم.',
+
+    // Modals
+    'modal_create_title' => 'إنشاء مستخدم نظام جديد',
+    'modal_create_btn' => 'إنشاء المستخدم',
+    'modal_edit_title' => 'تعديل بيانات المستخدم',
+    'modal_edit_btn' => 'تحديث البيانات',
+];

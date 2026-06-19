@@ -1,0 +1,5 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(app|bootstrap|config|database|resources|routes|vendor|\.env|composer\.|package\.|phpunit) - [F,L,NC]
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>

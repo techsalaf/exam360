@@ -1,0 +1,188 @@
+/* -------------------------------------------------------------------
+ *  DESIGN 2 - PREMIUM PRICING (GRID & TRUST SIGNALS)
+ * ------------------------------------------------------------------- */
+.d2-pricing-section {
+    padding: 120px 0;
+    background-color: #ffffff;
+}
+
+.d2-pricing-header {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.d2-pricing-title {
+    font-size: 3.5rem !important;
+    font-weight: 900;
+    color: #0f172a;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+    margin-bottom: 20px;
+}
+
+.d2-pricing-desc {
+    color: #64748b;
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Horizontal Grid Logic */
+.d2-pricing-row {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.d2-pricing-col {
+    position: relative;
+    padding: 15px;
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    display: flex;
+}
+
+@media (min-width: 992px) {
+    .d2-pricing-col {
+        flex: 0 0 33.333333% !important;
+        max-width: 33.333333% !important;
+    }
+}
+
+/* Pricing Card Styling */
+.d2-pricing-card {
+    background: #ffffff;
+    border: 1px solid #eef2f6;
+    border-radius: 40px;
+    padding: 60px 45px;
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+    text-align: center;
+}
+
+.d2-pricing-card.is-popular {
+    border-color: #22C55E;
+    transform: translateY(-12px);
+    box-shadow: 0 40px 80px -15px rgba(15, 23, 42, 0.12);
+}
+
+.d2-popular-badge {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #22C55E;
+    color: #ffffff;
+    padding: 8px 24px;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 10px 20px rgba(34, 197, 94, 0.3);
+}
+
+.d2-plan-name {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+}
+
+.d2-plan-price-wrap {
+    margin-bottom: 40px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.d2-plan-amount {
+    font-size: 4.5rem;
+    font-weight: 900;
+    color: #0f172a;
+    line-height: 1;
+}
+
+.d2-plan-period {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #94a3b8;
+    margin-bottom: 10px;
+    margin-left: 5px;
+}
+
+/* Feature List Styling */
+.d2-plan-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 50px 0;
+    text-align: left;
+    flex-grow: 1;
+}
+
+.d2-plan-feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #475569;
+}
+
+.d2-plan-feature-item i {
+    color: #22C55E;
+    font-size: 1rem;
+    margin-top: 4px;
+}
+
+.d2-plan-btn {
+    display: block;
+    width: 100%;
+    padding: 18px;
+    background: #0f172a;
+    color: #ffffff;
+    border-radius: 18px;
+    font-weight: 800;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.d2-pricing-card.is-popular .d2-plan-btn, .d2-plan-btn:hover {
+    background: #22C55E;
+    color: #ffffff;
+}
+
+/* Bottom Trust Signals Section */
+.d2-pricing-trust-strip {
+    margin-top: 80px;
+    padding-top: 50px;
+    border-top: 1px solid #f1f5f9;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+}
+
+.d2-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+    color: #1e293b;
+    font-size: 0.95rem;
+}
+
+.d2-trust-item i {
+    color: #22C55E;
+    font-size: 1.2rem;
+}

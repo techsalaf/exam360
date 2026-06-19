@@ -1,0 +1,1340 @@
+/* -----------------------------------------------------------------------------
+   ZIEXAM AI - NOTIFICATIONS MODULE & TEMPLATE EDITORS
+   Theme: Emerald & Slate (Dark Mode Compatible)
+   -------------------------------------------------------------------------- */
+
+:root {
+    /* --- LIGHT MODE VARIABLES --- */
+    --zi-primary: #10b981;
+    --zi-primary-hover: #059669;
+    --zi-primary-soft: #ecfdf5;
+    
+    --zi-white: #ffffff;
+    --zi-bg-body: #f9fafb;
+    --zi-bg-card: #ffffff;
+    --zi-bg-subtle: #f3f4f6;
+    
+    --zi-text-main: #111827;
+    --zi-text-muted: #6b7280;
+    --zi-text-light: #9ca3af;
+    
+    --zi-border: #e5e7eb; 
+    --zi-radius: 0.75rem;
+    
+    --zi-font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --zi-font-mono: 'JetBrains Mono', monospace;
+
+    --zi-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --zi-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* --- DARK MODE OVERRIDES --- */
+[data-bs-theme="dark"] {
+    --zi-primary: #10b981;
+    --zi-primary-hover: #34d399;
+    --zi-primary-soft: rgba(16, 185, 129, 0.15);
+    
+    --zi-bg-body: #0f172a;
+    --zi-bg-card: #1e293b;
+    --zi-white: #1e293b;
+    --zi-bg-subtle: #334155; 
+    
+    --zi-text-main: #f8fafc;
+    --zi-text-muted: #94a3b8; 
+    --zi-text-light: #64748b;
+    
+    --zi-border: #334155; 
+
+    --zi-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --zi-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+}
+
+/* -----------------------------------------------------------------------------
+   Layout & Typography
+   -------------------------------------------------------------------------- */
+
+.sn-wrapper {
+    width: 100%;
+    font-family: var(--zi-font-sans);
+    color: var(--zi-text-main);
+}
+
+.zi-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--zi-text-main);
+    margin: 0;
+    line-height: 1.2;
+}
+
+.zi-subtitle {
+    font-size: 0.875rem;
+    color: var(--zi-text-muted);
+    margin-top: 0.25rem;
+    display: block;
+}
+
+.zi-page-title {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--zi-text-main);
+    margin-bottom: 0.5rem;
+}
+
+/* -----------------------------------------------------------------------------
+   Navigation Tabs (Pills)
+   -------------------------------------------------------------------------- */
+
+.nav-pills .nav-link {
+    color: var(--zi-text-muted);
+    background: transparent;
+    padding: 0.625rem 1.25rem;
+    margin-right: 0.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.nav-pills .nav-link:hover {
+    color: var(--zi-text-main);
+    background: var(--zi-bg-subtle);
+}
+
+.nav-pills .nav-link.active {
+    background-color: var(--zi-text-main); 
+    color: var(--zi-bg-card) !important;
+    box-shadow: var(--zi-shadow-sm);
+}
+
+[data-bs-theme="dark"] .nav-pills .nav-link.active {
+    background-color: var(--zi-primary);
+    color: #ffffff !important;
+}
+
+/* -----------------------------------------------------------------------------
+   Settings Sidebar (Left Column)
+   -------------------------------------------------------------------------- */
+
+.zi-settings-sidebar {
+    background: var(--zi-bg-card);
+    border: 1px solid var(--zi-border);
+    border-radius: var(--zi-radius);
+    padding: 1rem;
+    height: 100%;
+}
+
+.zi-nav-header {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--zi-text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.zi-nav-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    color: var(--zi-text-muted);
+    text-decoration: none;
+    border-radius: 0.5rem;
+    margin-bottom: 0.25rem;
+    transition: all 0.2s ease;
+}
+
+.zi-nav-item:hover {
+    background-color: var(--zi-bg-subtle);
+    color: var(--zi-text-main);
+}
+
+.zi-nav-item.active {
+    background-color: var(--zi-primary-soft);
+    color: #064e3b; 
+}
+
+[data-bs-theme="dark"] .zi-nav-item.active {
+    color: #34d399;
+}
+
+.zi-nav-item.active .zi-nav-icon {
+    color: var(--zi-primary);
+}
+
+.zi-nav-icon {
+    width: 24px;
+    text-align: center;
+    margin-right: 0.75rem;
+    font-size: 1.1rem;
+    color: var(--zi-text-light);
+    transition: color 0.2s;
+}
+
+/* -----------------------------------------------------------------------------
+   Cards & KPI Grid (KPI / Filter Cards Fix)
+   -------------------------------------------------------------------------- */
+
+.zi-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+@media (max-width: 992px) {
+    .zi-kpi-grid { grid-template-columns: 1fr; }
+}
+
+/* Specific styling for the KPI cards to ensure they pop in dark mode */
+.sn-card.kpi-card {
+    background: var(--zi-bg-card);
+    border: 1px solid var(--zi-border);
+    border-radius: var(--zi-radius);
+    padding: 1.25rem;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 80px;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+.sn-card.kpi-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--zi-shadow-sm);
+    border-color: var(--zi-primary);
+}
+
+.zi-icon-box {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+    margin-right: 1rem;
+    flex-shrink: 0;
+    background-color: var(--zi-bg-subtle);
+    color: var(--zi-text-muted);
+}
+
+/* Soft Colors */
+.bg-soft-green { background-color: var(--zi-primary-soft); color: var(--zi-primary); }
+.bg-soft-purple { background-color: #f3e8ff; color: #7e22ce; }
+.bg-soft-orange { background-color: #ffedd5; color: #ea580c; }
+.bg-soft-slate { background-color: #f1f5f9; color: #475569; }
+
+/* Dark Mode Soft Colors override */
+[data-bs-theme="dark"] .bg-soft-green { background-color: rgba(16, 185, 129, 0.2); color: #34d399; }
+[data-bs-theme="dark"] .bg-soft-purple { background-color: rgba(126, 34, 206, 0.2); color: #a78bfa; }
+[data-bs-theme="dark"] .bg-soft-orange { background-color: rgba(234, 88, 12, 0.2); color: #f97316; }
+[data-bs-theme="dark"] .bg-soft-slate { background-color: rgba(100, 116, 139, 0.2); color: #cbd5e1; }
+
+/* -----------------------------------------------------------------------------
+   Card Component (SN-CARD) - General
+   -------------------------------------------------------------------------- */
+
+.sn-card {
+    background: var(--zi-bg-card);
+    border: 1px solid var(--zi-border);
+    border-radius: var(--zi-radius);
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100%;
+}
+
+.sn-card-head, 
+.sn-card-header {
+    padding: 1.25rem;
+    border-bottom: 1px solid var(--zi-border);
+    background: var(--zi-bg-card); 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sn-card-body {
+    padding: 1.5rem;
+    flex: 1;
+}
+
+.sn-card-foot {
+    padding: 0.75rem 1.25rem;
+    background: var(--zi-bg-subtle);
+    border-top: 1px solid var(--zi-border);
+    display: flex;
+    justify-content: flex-end; 
+    align-items: center;
+    font-size: 0.8rem;
+}
+
+/* -----------------------------------------------------------------------------
+   Driver Selection (Grid & Cards)
+   -------------------------------------------------------------------------- */
+
+.zi-driver-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 1.25rem;
+    width: 100%;
+}
+
+@media (max-width: 991px) {
+    .zi-driver-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.zi-driver-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 1.25rem;
+    border: 1px solid var(--zi-border);
+    border-radius: var(--zi-radius);
+    cursor: pointer;
+    background: var(--zi-bg-card);
+    transition: all 0.2s ease;
+    height: 100%;
+}
+
+.zi-driver-card:hover {
+    border-color: var(--zi-text-muted);
+}
+
+.zi-driver-card.active {
+    border-color: var(--zi-primary);
+    background-color: var(--zi-primary-soft);
+    box-shadow: 0 0 0 1px var(--zi-primary);
+}
+
+.zi-driver-card input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* Custom Radio Circle */
+.zi-radio-circle {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--zi-border);
+    border-radius: 50%;
+    margin-right: 1rem;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--zi-bg-card); 
+    transition: all 0.2s;
+}
+
+.zi-driver-card.active .zi-radio-circle {
+    border-color: var(--zi-primary);
+    background: var(--zi-primary);
+}
+
+.zi-driver-card.active .zi-radio-circle::after {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #fff;
+}
+
+/* Active State Icons */
+.zi-driver-card.active .zi-icon-box {
+    background-color: var(--zi-bg-card); 
+    color: var(--zi-primary);
+}
+
+/* -----------------------------------------------------------------------------
+   Inputs & Forms
+   -------------------------------------------------------------------------- */
+
+.sn-label {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--zi-text-muted);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.025em;
+}
+
+.sn-input,
+.form-control-premium {
+    display: block;
+    width: 100%;
+    padding: 0.625rem 0.875rem;
+    font-size: 0.9375rem;
+    color: var(--zi-text-main);
+    background-color: var(--zi-bg-card);
+    border: 1px solid var(--zi-border);
+    border-radius: 0.5rem;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    height: auto; 
+}
+
+.sn-input:focus,
+.form-control-premium:focus {
+    outline: none;
+    border-color: var(--zi-primary);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+/* Monospace input styles */
+.sn-input.sn-font-mono,
+.form-control-premium.sn-font-mono {
+    font-family: var(--zi-font-mono);
+    font-size: 0.85rem;
+    background-color: var(--zi-bg-subtle); 
+    line-height: 1.5;
+}
+
+/* FIX: Force single-line height for callback URL input */
+.callback-url-input {
+    /* Set fixed height to match standard inputs */
+    height: 40px !important; 
+    min-height: 40px !important;
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+    white-space: nowrap; /* Keep content on one line */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Make readonly inputs look protected */
+.callback-url-input[readonly] {
+    color: var(--zi-text-main);
+    opacity: 1;
+}
+
+/* Password/Callback Toggle Group */
+.zi-input-group {
+    position: relative;
+    width: 100%;
+}
+
+.zi-input-group .sn-input,
+.zi-input-group .form-control-premium {
+    padding-right: 3rem;
+}
+
+.zi-input-toggle {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 3rem;
+    /* Use explicit height to match the input height */
+    height: 40px !important; 
+    border: none;
+    background: transparent;
+    color: var(--zi-text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.zi-input-toggle:hover {
+    color: var(--zi-text-main);
+}
+
+/* -----------------------------------------------------------------------------
+   Logic Table (Fix: Transparent BG in Dark Mode)
+   -------------------------------------------------------------------------- */
+
+.zi-logic-card {
+    background: var(--zi-bg-card);
+    border: 1px solid var(--zi-border);
+    border-radius: var(--zi-radius);
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+.zi-logic-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.zi-logic-table th {
+    text-align: left;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--zi-text-muted);
+    padding: 1rem 1.5rem;
+    background: transparent; /* Transparent to show card bg */
+    border-bottom: 1px solid var(--zi-border);
+    font-weight: 700;
+}
+
+.zi-logic-table td {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--zi-border);
+    vertical-align: middle;
+    color: var(--zi-text-main);
+    background: transparent; /* Transparent to show card bg */
+}
+
+.zi-logic-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* -----------------------------------------------------------------------------
+   Badges & Mobile Preview
+   -------------------------------------------------------------------------- */
+
+.sn-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-family: var(--zi-font-mono);
+    background-color: var(--zi-bg-subtle); 
+    border: 1px solid var(--zi-border);
+    color: var(--zi-text-muted);
+}
+
+/* -----------------------------------------------------------------------------
+   SMS Editor & Template Specifics
+   -------------------------------------------------------------------------- */
+
+.zi-action-btn {
+    width: 42px;
+    height: 42px;
+    background: var(--zi-bg-card);
+    border: 1px solid var(--zi-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--zi-text-main);
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.zi-action-btn:hover {
+    background: var(--zi-bg-subtle);
+    border-color: var(--zi-text-muted);
+    color: var(--zi-text-main);
+}
+
+.sn-input-textarea {
+    min-height: 140px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+.sn-badge.interactive {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.sn-badge.interactive:hover {
+    background-color: var(--zi-border);
+    color: var(--zi-text-main);
+    border-color: var(--zi-text-muted);
+}
+
+.text-danger {
+    color: #ef4444 !important;
+}
+
+/* -----------------------------------------------------------------------------
+   Email Template Specifics (Sidebar)
+   -------------------------------------------------------------------------- */
+
+.sn-list-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.sn-list-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.25rem;
+    color: var(--zi-text-muted);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--zi-radius);
+    transition: all 0.2s ease;
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.sn-list-item:hover {
+    background-color: var(--zi-bg-subtle);
+    color: var(--zi-text-main);
+}
+
+.sn-list-item.active {
+    background-color: var(--zi-primary);
+    color: #ffffff;
+    border-color: var(--zi-primary);
+    font-weight: 700;
+    box-shadow: var(--zi-shadow-sm);
+}
+
+.sn-list-item i {
+    width: 24px;
+    text-align: center;
+    margin-right: 0.75rem;
+}
+
+.sn-font-mono {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    min-height: 300px;
+}
+
+.sn-badge-interactive {
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s ease;
+}
+
+.sn-badge-interactive:hover {
+    background-color: var(--zi-border);
+    border-color: var(--zi-text-muted);
+    color: var(--zi-text-main);
+}
+
+/* -----------------------------------------------------------------------------
+   Push Notification Preview
+   -------------------------------------------------------------------------- */
+
+.sn-mobile-preview {
+    background-color: var(--zi-bg-subtle); 
+    border: 1px solid var(--zi-border);
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 0.5rem;
+}
+
+.sn-preview-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    background-color: var(--zi-bg-card); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--zi-text-muted);
+    flex-shrink: 0;
+    box-shadow: var(--zi-shadow-sm);
+    border: 1px solid var(--zi-border);
+}
+
+.sn-preview-content {
+    min-width: 0;
+    flex: 1;
+}
+
+.sn-preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2px;
+    font-size: 0.75rem;
+    line-height: 1.2;
+}
+
+.sn-preview-app-name {
+    font-weight: 700;
+    color: var(--zi-text-main);
+}
+
+.sn-preview-time {
+    color: var(--zi-text-muted);
+    font-size: 0.7rem;
+}
+
+.sn-preview-title {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--zi-text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 1px;
+}
+
+.sn-preview-body {
+    font-size: 0.85rem;
+    color: var(--zi-text-muted);
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.sn-device-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    color: var(--zi-text-light);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+
+/* =============================================================================
+   MOBILE OVERRIDES (<= 768px)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    
+    /* 1. Global Wrapper Sizing */
+    .sn-wrapper {
+        padding: 0 0.5rem;
+    }
+
+    /* 2. Header Reorganization */
+    .sn-page-header {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 1rem;
+        margin-bottom: 1.5rem !important;
+    }
+
+    .zi-title {
+        font-size: 1.35rem;
+    }
+    
+    /* Hide the original header save button if we are using the sticky footer */
+    .sn-page-header .btn-success {
+        display: none;
+    }
+
+    /* 3. Sticky Bottom Save Button Bar */
+    .sn-form-sticky-foot {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 1rem;
+        background: var(--zi-bg-card);
+        border-top: 1px solid var(--zi-border);
+        z-index: 1050;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
+    }
+
+    .sn-form-sticky-foot .btn {
+        width: 100%;
+        padding: 0.75rem;
+        font-size: 1rem;
+    }
+
+    /* Spacer to prevent content from being hidden behind sticky footer */
+    .sn-wrapper {
+        padding-bottom: 80px;
+    }
+
+    /* 4. Email Sidebar -> Horizontal Scroll Menu */
+    .sn-list-group {
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 5px; /* Space for scrollbar */
+        margin-bottom: 1rem;
+        gap: 0.75rem;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .sn-list-item {
+        white-space: nowrap;
+        border: 1px solid var(--zi-border);
+        border-radius: 999px; /* Pill shape */
+        padding: 0.5rem 1rem;
+        flex-shrink: 0;
+    }
+
+    .sn-list-item.active {
+        border-color: var(--zi-primary);
+    }
+    
+    .sn-list-item i {
+        margin-right: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    /* 5. Driver Grid & KPI Grid stacking */
+    .zi-driver-grid, 
+    .zi-kpi-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* 6. Touch Targets for Inputs */
+    .sn-input, 
+    .form-control-premium {
+        font-size: 16px; /* Prevents iOS zoom */
+        padding: 0.75rem;
+    }
+
+    /* 7. Logic Table -> Card View Transformation */
+    .zi-logic-table thead {
+        display: none;
+    }
+
+    .zi-logic-table tbody tr {
+        display: block;
+        background: var(--zi-bg-card);
+        border: 1px solid var(--zi-border);
+        border-radius: 12px;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        box-shadow: var(--zi-shadow-sm);
+    }
+
+    .zi-logic-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--zi-bg-subtle);
+        padding: 0.75rem 0;
+        text-align: right;
+    }
+
+    .zi-logic-table td:last-child {
+        border-bottom: none;
+    }
+
+    .zi-logic-table td::before {
+        content: attr(data-label);
+        font-weight: 700;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        color: var(--zi-text-muted);
+        text-align: left;
+        margin-right: 1rem;
+    }
+    
+    .zi-logic-table td .ps-4 { padding-left: 0 !important; }
+
+    /* 8. Preview Boxes */
+    .sn-mobile-preview {
+        flex-direction: row;
+        padding: 1rem;
+    }
+}
+
+/* =============================================================================
+   ROLES & PERMISSION MANAGEMENT FIXES (Integrated for Rule 2 Compliance)
+   ========================================================================== */
+
+/* Utility class for primary text color */
+.text-main-color {
+    color: var(--zi-text-main) !important;
+}
+
+/* Base style for the outer role grid container */
+.roles-grid-container {
+    background-color: var(--zi-bg-subtle); 
+    border-color: var(--zi-border) !important;
+}
+
+/* Base card styles (Used in Blade as .role-card-inner) */
+.role-card-inner {
+    background-color: var(--zi-bg-card); 
+    border: 1px solid var(--zi-border); 
+    box-shadow: var(--zi-shadow-sm);
+    transition: all 0.2s ease;
+}
+
+/* Active state handling (Dynamic style replacement) */
+.role-card-inner.is-active {
+    border-color: var(--zi-primary) !important;
+    outline: 1px solid var(--zi-primary);
+    box-shadow: none;
+}
+
+/* Role Icons (Dimensions/Font Size) */
+.role-icon-box {
+    width: 48px; 
+    height: 48px; 
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+/* Role Badges */
+.role-badge-locked {
+    background-color: var(--zi-text-main);
+    color: var(--zi-bg-card);
+    border: 1px solid var(--zi-border);
+}
+
+.role-badge-custom {
+    background-color: var(--zi-bg-subtle); 
+    color: var(--zi-text-muted);
+    border: 1px solid var(--zi-border);
+}
+
+/* Role User Count Footer text */
+.role-user-count {
+    color: var(--zi-text-main); 
+    font-size: 0.75rem;
+}
+
+/* Footer divider within the role card */
+.role-footer-divider {
+    border-color: var(--zi-border) !important;
+}
+
+/* Role Action Buttons (Edit/Delete) - Replaces inline width/height/font-size */
+.role-action-btn {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.role-action-btn i {
+    font-size: 0.7rem;
+}
+
+/* Permission Matrix Styles */
+
+.permission-matrix-header {
+    border-color: var(--zi-border) !important;
+}
+
+.permission-matrix-icon-box {
+    width: 42px; 
+    height: 42px; 
+    background-color: var(--zi-bg-subtle); 
+    border-color: var(--zi-border) !important;
+}
+
+/* Button style for Update Permissions button */
+.btn-white-premium {
+    color: var(--zi-text-main); 
+    background-color: var(--zi-bg-card); 
+    border-color: var(--zi-border);
+}
+
+.permission-group-header-style {
+    font-size: 0.75rem; 
+    letter-spacing: 0.05em; 
+    background-color: var(--zi-bg-subtle);
+}
+
+.permission-item-divider {
+    border-color: var(--zi-border) !important;
+}
+
+/* Standardize permission label styles, removing inline font-size and color */
+.perm-label {
+    color: var(--zi-text-main); 
+    font-size: 0.85rem !important;
+    font-weight: 500;
+}
+
+/* Modal Styling */
+.modal-content-card {
+    background-color: var(--zi-bg-card);
+}
+
+.btn-primary-inverted {
+    /* Used for the Update Role button in the Edit Modal */
+    background-color: var(--zi-text-main) !important; 
+    border-color: var(--zi-text-main) !important;
+}
+.roles-grid-container {
+    background-color: var(--zi-bg-subtle); 
+    border-color: var(--zi-border) !important;
+}
+.logo-preview-box {
+    width: 120px;
+    height: 80px;
+    /* Ensure the preview box is relative for absolute delete button positioning */
+    position: relative;
+    flex-shrink: 0;
+}
+
+.logo-preview-box img {
+    max-height: 100%;
+}
+
+.logo-delete-btn-sm {
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 4px; /* Matches the original 'm-1' */
+    z-index: 10;
+}
+
+.logo-delete-icon-sm {
+    font-size: 10px;
+}
+
+.favicon-preview-box {
+    width: 48px;
+    height: 48px;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.favicon-delete-btn-xs {
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    transform: translate(30%, -30%); 
+    z-index: 10;
+}
+
+.favicon-delete-icon-xs {
+    font-size: 8px;
+}
+.branding-editor-icon-box {
+    width: 42px;
+    height: 42px;
+}
+
+.branding-editor-icon {
+    font-size: 1.25rem;
+}
+
+.branding-code-textarea {
+    font-size: 0.85rem;
+}
+.frontend-section-icon-box {
+    width: 48px;
+    height: 48px;
+}
+
+.frontend-section-icon {
+    font-size: 1.25rem;
+}
+.text-main-color {
+    color: var(--zi-text-main) !important;
+}
+.zi-icon-box-lg {
+    width: 50px !important;
+    height: 50px !important;
+    font-size: 1.25rem !important;
+}
+
+.zi-icon-box-md {
+    width: 48px !important;
+    height: 48px !important;
+    font-size: 1.15rem !important;
+}
+
+.zi-th-event {
+    width: 40%;
+}
+.sn-char-small {
+    font-size: 0.75rem;
+}
+
+.text-danger {
+    color: #dc3545 !important;
+}
+.zi-title-sm {
+    font-size: 1.25rem;
+}
+
+.zi-icon-square {
+    width: 42px;
+    height: 42px;
+}
+.st-text-main {
+    color: var(--st-text-main);
+}
+.currency-icon-box {
+    width: 48px; 
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    background-color: #f8fafc;
+    color: #10b981;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    margin-right: 1rem;
+}
+
+.currency-icon {
+    font-size: 1.25rem;
+}
+
+.currency-sep-input {
+    max-width: 100px;
+    text-align: center;
+}
+
+.custom-currency-fields {
+    display: none;
+}
+.tax-icon-box {
+    width: 48px; 
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    background-color: #fffbeb; /* bg-light text-warning equivalent */
+    color: #f59e0b;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.tax-icon {
+    font-size: 1.25rem;
+}
+
+.tax-percent-box {
+    height: 44px; 
+    width: 44px; 
+    border: 1px solid #e2e8f0; 
+    border-radius: 8px;
+    background-color: #f8fafc;
+    color: #64748b;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tax-switch {
+    transform: scale(1.2);
+}
+.seo-icon-box {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    background-color: #f8fafc;
+    color: #0d6efd;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.seo-icon {
+    font-size: 1.25rem;
+}
+
+.seo-banner-preview {
+    height: 180px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.seo-banner-delete-btn {
+    width: 32px; 
+    height: 32px;
+}
+
+.seo-banner-empty {
+    border-style: dashed !important;
+}
+
+.seo-empty-icon {
+    font-size: 2.5rem; 
+    opacity: 0.5;
+}
+
+.seo-trash-icon {
+    font-size: 0.8rem;
+}
+.seo-sitemap-icon-box {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    background-color: #f8fafc;
+    color: #0dcaf0; /* Bootstrap info color */
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.seo-sitemap-icon {
+    font-size: 1.25rem;
+}
+
+.seo-sitemap-small-icon {
+    width: 16px;
+    text-align: center;
+}
+.gdpr-icon-box {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    background-color: #f8fafc;
+    color: #0d6efd; /* Bootstrap primary */
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.gdpr-icon {
+    font-size: 1.25rem;
+}
+
+.gdpr-switch {
+    transform: scale(1.2);
+}
+.policy-icon-box {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    background-color: #f8fafc;
+    color: #0dcaf0;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.policy-icon {
+    font-size: 1.25rem;
+}
+
+.policy-switch {
+    transform: scale(1.2);
+}
+.ai-icon-box {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    background-color: #f8fafc;
+    color: #0d6efd; /* Bootstrap primary */
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.ai-icon {
+    font-size: 1.25rem;
+}
+
+.ai-settings-box {
+    display: none;
+}
+
+.ai-settings-box.active {
+    display: block;
+}
+
+.ai-toggle-btn {
+    z-index: 5;
+}
+/* Cron Jobs Settings Styles */
+.cron-info-icon {
+    font-size: 1.25rem;
+    color: #0d6efd;
+    margin-right: 1rem;
+    margin-top: 0.25rem;
+}
+
+.cron-icon-box {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    background-color: #fffbeb; 
+    color: #ffc107; 
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.cron-icon {
+    font-size: 1.5rem;
+}
+
+.cron-command-box {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: #212529;
+    color: #fff;
+    font-family: monospace;
+    font-size: 0.85rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cron-switch-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    background-color: #f8fafc;
+    height: 100%;
+}
+
+.cron-switch {
+    transform: scale(1.2);
+}
+/* Extension Settings Styles */
+.ext-icon-box {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    background-color: #ffffff;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    margin-right: 1rem;
+}
+
+.ext-icon-box.dark-bg {
+    background-color: #0f172a;
+}
+
+.ext-switch {
+    transform: scale(1.2);
+}
+
+.ext-toggle-btn {
+    z-index: 5;
+}

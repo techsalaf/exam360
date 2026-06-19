@@ -1,0 +1,79 @@
+/* =========================================
+   1. GDPR Cookie Consent Banner
+   ========================================= */
+
+.zi-cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    border-top: 1px solid #e2e8f0;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.05);
+    padding: 1.25rem 0;
+    z-index: 9999;
+    display: none;
+    animation: slideUp 0.5s ease-out forwards;
+}
+
+.zi-cookie-text {
+    color: #1e293b;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
+[data-bs-theme="dark"] .zi-cookie-banner {
+    background-color: #1e293b;
+    border-top-color: #334155;
+}
+
+[data-bs-theme="dark"] .zi-cookie-text {
+    color: #f1f5f9;
+}
+
+.scroll-top-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 45px;
+    height: 45px;
+    background-color: var(--bs-primary, #0d6efd);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    z-index: 990;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    pointer-events: none;
+}
+
+.scroll-top-btn:hover {
+    background-color: var(--bs-primary-dark, #0b5ed7);
+    color: white;
+    transform: translateY(-3px);
+}
+
+.scroll-top-btn.with-chat {
+    bottom: 100px !important; 
+}
+
+@media (max-width: 768px) {
+    .scroll-top-btn.with-chat {
+        bottom: 110px !important; 
+    }
+}
+
+.hover-white:hover {
+    color: #fff !important;
+    text-decoration: underline !important;
+}

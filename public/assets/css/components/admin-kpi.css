@@ -1,0 +1,60 @@
+/* 
+    -------------------------------------------------------------------------
+    COMPONENT: ADMIN KPI GRID
+    Description: Reusable stat cards for top of pages
+    -------------------------------------------------------------------------
+*/
+
+.zi-kpi-card {
+    background: var(--zi-bg-card);
+    border: 1px solid var(--zi-border-color);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    height: 100%;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.zi-kpi-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+}
+
+.zi-kpi-content h3 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--zi-text-main);
+    margin: 0;
+    line-height: 1;
+}
+
+.zi-kpi-content p {
+    font-size: 0.85rem;
+    color: var(--zi-text-muted);
+    margin: 8px 0 0 0;
+    font-weight: 600;
+}
+
+.zi-kpi-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+/* Color Variants */
+.zi-kpi-icon.primary { background: rgba(37,99,235,0.1); color: #2563eb; }
+.zi-kpi-icon.success { background: rgba(16,185,129,0.1); color: #10b981; }
+.zi-kpi-icon.warning { background: rgba(245,158,11,0.1); color: #f59e0b; }
+.zi-kpi-icon.danger  { background: rgba(239,68,68,0.1); color: #ef4444; }
+.zi-kpi-icon.neutral { background: var(--zi-bg-hover); color: var(--zi-text-muted); }
+
+/* Dark Mode Adjustments */
+[data-bs-theme="dark"] .zi-kpi-icon.primary { background: rgba(37,99,235,0.2); }
+[data-bs-theme="dark"] .zi-kpi-icon.success { background: rgba(16,185,129,0.2); }

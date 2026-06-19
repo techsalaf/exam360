@@ -1,0 +1,140 @@
+<?php
+
+return [
+    // Page Titles & Headers
+    'title_list' => 'All Users',
+    'title_active' => 'Active Users',
+    'title_banned' => 'Banned Users',
+    'title_unverified_email' => 'Email Unverified Users',
+    'title_unverified_mobile' => 'Mobile Unverified Users',
+    'subtitle_list' => 'Manage and monitor all registered users in the system.',
+    'title_show' => 'Console: :name',
+    'title_notifications' => 'Send Notifications',
+    'subtitle_notifications' => 'Compose and send messages via Email or SMS to your user base.',
+
+    // KPI Labels
+    'kpi_total_users' => 'Total Users',
+    'kpi_unverified_emails' => 'Unverified Emails',
+    'kpi_banned_users' => 'Banned Users',
+    'kpi_total_transactions' => 'Total Transactions',
+    'kpi_exams_taken' => 'Exams Taken',
+    'kpi_payment_count' => 'Payment Count',
+
+    // Buttons
+    'btn_filter' => 'Filter & Search',
+    'btn_add_new' => 'Add New',
+    'btn_view_details' => 'View Details',
+    'btn_edit' => 'Edit Details',
+    'btn_back' => 'Back to User List',
+    'btn_logins' => 'Logins',
+    'btn_login_as' => 'Login As',
+    'btn_save' => 'Save Changes',
+    'btn_clear_all' => 'Clear All',
+    'btn_send_now' => 'Send Now',
+    'btn_cancel' => 'Cancel',
+    'btn_apply_filters' => 'Apply Filters',
+    
+    // Table Headers
+    'col_user' => 'USER',
+    'col_contact' => 'EMAIL / MOBILE',
+    'col_country' => 'COUNTRY',
+    'col_joined' => 'JOINED AT',
+    'col_action' => 'ACTION',
+    'col_date' => 'DATE',
+    'col_plan' => 'PLAN / ITEM',
+    'col_amount' => 'AMOUNT',
+    'col_status' => 'STATUS',
+
+    // Form Labels
+    'label_name' => 'Full Name',
+    'label_email' => 'Email Address',
+    'label_mobile' => 'Mobile Number',
+    'label_country' => 'Country',
+    'label_address' => 'Street Address',
+    'label_city' => 'City',
+    'label_state' => 'State',
+    'label_zip' => 'Zip Code',
+    'label_role' => 'System Role',
+    'label_password' => 'Password',
+    'label_password_optional' => 'New Password (Optional)',
+    'label_password_placeholder' => 'Leave blank to keep current',
+    'label_search' => 'Search name or email...',
+    'label_search_users' => 'SEARCH USERS',
+    'label_subject' => 'Subject',
+    'label_message' => 'Message',
+
+    // Statuses
+    'status_verified' => 'Verified',
+    'status_unverified' => 'Unverified',
+    'status_banned' => 'BANNED',
+    'status_active' => 'ACTIVE USER',
+    'status_paid' => 'Paid',
+    'status_pending' => 'Pending',
+    'status_failed' => 'Failed',
+    'status_open_tickets' => ':count Open Ticket|:count Open Tickets',
+
+    // Sections (Show Page)
+    'sect_profile' => 'Profile Information',
+    'sect_transactions' => 'Recent Transactions',
+    'sect_notifications' => 'Notifications',
+    'sect_support' => 'Support History',
+    'sect_actions' => 'Actions',
+    'sect_login_history' => 'Login History',
+    'sect_email_status' => 'EMAIL STATUS',
+    'sect_mobile_status' => 'MOBILE STATUS',
+    'sect_current_plan' => 'CURRENT PLAN',
+
+    // Alerts & Confirmations
+    'confirm_title' => 'Are you sure?',
+    'confirm_text' => 'Action cannot be undone.',
+    'confirm_yes' => 'Yes, proceed!',
+    'confirm_delete_title' => 'Delete Notification?',
+    'confirm_delete_text' => "You won't be able to revert this!",
+    'confirm_clear_title' => 'Clear All Notifications?',
+    'confirm_clear_text' => 'This will permanently remove all notifications for this user.',
+    'confirm_ban_title' => 'Ban User?',
+    'confirm_lift_ban_title' => 'Lift Ban?',
+    'confirm_ban_text' => 'Are you sure you want to change the status of this user?',
+    'confirm_send_title' => 'Confirm Sending',
+    'confirm_send_text' => 'You are about to launch this notification campaign.',
+    'action_ban' => 'Ban User',
+    'action_unban' => 'Unban User',
+
+    // Messages
+    'msg_user_created' => 'User created successfully.',
+    'msg_user_updated' => 'User updated successfully.',
+    'msg_user_banned' => 'User has been banned.',
+    'msg_user_activated' => 'User has been activated.',
+    'msg_plan_assigned' => 'Plan assigned successfully.',
+    'msg_unauthorized_role' => 'Unauthorized role assignment.',
+    'msg_unauthorized_action' => 'Unauthorized action.',
+    'msg_cannot_ban' => 'Cannot ban this account.',
+    'msg_cannot_impersonate' => 'Cannot impersonate Super Admin.',
+
+    // Notifications Page
+    'step_audience' => '1. Select Audience',
+    'opt_all_users' => 'All Users',
+    'opt_all_users_desc' => 'Send to everyone',
+    'opt_specific_users' => 'Specific Users',
+    'opt_specific_users_desc' => 'Select manually',
+    'step_channels' => '2. Communication Channels',
+    'chan_email' => 'Email Notification',
+    'chan_sms' => 'SMS Notification',
+    'step_content' => 'Email Content',
+    'label_body' => 'Message Body',
+    'label_sms_content' => 'SMS Content',
+
+    // Empty States
+    'empty_title' => 'No users found',
+    'empty_subtitle' => 'Try adjusting your search or filtering options.',
+    'empty_transactions' => 'No transaction history found.',
+    'empty_notifications' => 'No recent notifications found.',
+    'empty_support' => 'No support tickets found.',
+    'empty_logins' => 'No login history available.',
+
+    // Modals
+    'modal_create_title' => 'Create New System User',
+    'modal_create_btn' => 'Create User',
+    'modal_edit_title' => 'Edit User',
+    'modal_edit_btn' => 'Update User',
+];

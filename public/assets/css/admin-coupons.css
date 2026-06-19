@@ -1,0 +1,302 @@
+/* ==========================================================================
+   Admin Coupons Page - Green Theme & Dark Mode
+   ========================================================================== */
+
+:root {
+    --zi-primary-green: #059669;
+    --zi-primary-dark:  #047857;
+    --zi-primary-light: #ecfdf5;
+    
+    /* Default Light Mode Variables */
+    --zi-bg-body:       #f8fafc;
+    --zi-bg-card:       #ffffff;
+    --zi-bg-header:     #f1f5f9;
+    --zi-text-main:     #0f172a;
+    --zi-text-body:     #334155;
+    --zi-text-muted:    #64748b;
+    --zi-border:        #e2e8f0;
+    --zi-input-bg:      #ffffff;
+    --zi-input-text:    #0f172a;
+    --zi-modal-bg:      #ffffff;
+    --zi-modal-footer:  #f8fafc;
+}
+
+/* --- Dark Mode Overrides --- */
+[data-bs-theme="dark"] {
+    --zi-bg-body:       #0f172a; 
+    --zi-bg-card:       #1e293b; 
+    --zi-bg-header:     #0f172a; 
+    --zi-text-main:     #f8fafc; 
+    --zi-text-body:     #cbd5e1; 
+    --zi-text-muted:    #94a3b8; 
+    --zi-border:        #334155; 
+    --zi-input-bg:      #0f172a; 
+    --zi-input-text:    #f8fafc;
+    --zi-modal-bg:      #1e293b; 
+    --zi-modal-footer:  #0f172a; 
+    --zi-primary-light: rgba(5, 150, 105, 0.15); 
+}
+
+/* --- Utilities (Replacing inline styles) --- */
+.card-rounded { border-radius: 16px; overflow: hidden; }
+.text-size-1rem { font-size: 1rem; }
+.help-text-small { font-size: 0.75rem; }
+
+/* --- Component Styles --- */
+
+.card {
+    background-color: var(--zi-bg-card);
+    border: 1px solid var(--zi-border);
+}
+
+.table-responsive {
+    background-color: var(--zi-bg-card);
+}
+
+.table {
+    color: var(--zi-text-body);
+    margin-bottom: 0;
+    --bs-table-bg: transparent;
+    white-space: nowrap;
+}
+
+.table thead th {
+    background-color: var(--zi-bg-header);
+    color: var(--zi-text-muted);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--zi-border);
+}
+
+[data-bs-theme="dark"] .table thead th {
+    border-top: 1px solid var(--zi-border); 
+    border-bottom: 1px solid var(--zi-border);
+    background-color: var(--zi-bg-header);
+    color: #94a3b8;
+}
+
+.table tbody td {
+    background-color: var(--zi-bg-card);
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--zi-border);
+    vertical-align: middle;
+}
+
+.table-hover tbody tr:hover td {
+    background-color: rgba(255, 255, 255, 0.03);
+    color: var(--zi-text-main);
+}
+
+.text-dark { color: var(--zi-text-main) !important; }
+.text-muted { color: var(--zi-text-muted) !important; }
+
+/* Badge Styles */
+.coupon-code-badge {
+    background: var(--zi-bg-header);
+    border: 1px dashed var(--zi-border);
+    color: var(--zi-text-main);
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-family: monospace;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    display: inline-block;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.status-active {
+    background-color: var(--zi-primary-light);
+    color: var(--zi-primary-green);
+    border: 1px solid rgba(5, 150, 105, 0.2);
+}
+
+.status-inactive {
+    background-color: rgba(220, 38, 38, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(220, 38, 38, 0.2);
+}
+
+/* Progress Bar (Dynamic Width handled by JS) */
+.usage-progress {
+    height: 6px;
+    background-color: var(--zi-bg-header);
+    border-radius: 50px;
+    margin-top: 8px;
+    overflow: hidden;
+    width: 100px;
+}
+
+.usage-bar {
+    width: 0%; /* Default width, set dynamically via JS */
+    height: 100%;
+    background-color: var(--zi-primary-green);
+    border-radius: 50px;
+    transition: width 0.3s ease;
+}
+
+/* Buttons */
+.btn-green-pill {
+    background-color: var(--zi-primary-green);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 24px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.btn-green-pill:hover {
+    background-color: var(--zi-primary-dark);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2);
+}
+
+.btn-icon-pill {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid var(--zi-border);
+    color: var(--zi-text-muted);
+    transition: all 0.2s;
+}
+
+.btn-icon-pill:hover {
+    border-color: var(--zi-primary-green);
+    color: var(--zi-primary-green);
+    background: var(--zi-primary-light);
+}
+
+.btn-icon-pill.delete:hover {
+    border-color: #ef4444;
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+}
+
+[data-bs-theme="dark"] .btn-icon-pill {
+    border-color: #334155;
+    color: #94a3b8;
+}
+[data-bs-theme="dark"] .btn-icon-pill:hover {
+    background-color: rgba(5, 150, 105, 0.1);
+    color: #059669;
+    border-color: #059669;
+}
+[data-bs-theme="dark"] .btn-icon-pill.delete:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border-color: #ef4444;
+}
+
+/* Modal Styling */
+.modal-content {
+    background-color: var(--zi-modal-bg);
+    border: 1px solid var(--zi-border);
+    border-radius: 20px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    background-color: var(--zi-modal-bg);
+    border-bottom: 1px solid var(--zi-border);
+    padding: 20px 24px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.modal-title {
+    color: var(--zi-text-main);
+}
+
+.modal-body {
+    background-color: var(--zi-modal-bg);
+    padding: 24px;
+    color: var(--zi-text-body);
+}
+
+.modal-footer {
+    border-top: 1px solid var(--zi-border);
+    padding: 16px 24px;
+    background-color: var(--zi-modal-footer);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.modal-footer .btn-light {
+    background-color: var(--zi-input-bg);
+    border-color: var(--zi-border);
+    color: var(--zi-text-body);
+}
+[data-bs-theme="dark"] .modal-footer .btn-light:hover {
+    background-color: #334155;
+    color: #fff;
+}
+
+.btn-close {
+    filter: invert(var(--zi-btn-close-invert, 0));
+}
+
+[data-bs-theme="dark"] .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+/* Form Controls */
+.form-label {
+    color: var(--zi-text-muted);
+}
+
+.form-control, .form-select {
+    background-color: var(--zi-input-bg);
+    border-color: var(--zi-border);
+    color: var(--zi-input-text);
+    border-radius: 10px;
+    padding: 10px 14px;
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: var(--zi-input-bg);
+    border-color: var(--zi-primary-green);
+    color: var(--zi-input-text);
+    box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+}
+
+.card-footer {
+    background-color: var(--zi-bg-card);
+    border-top: 1px solid var(--zi-border);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .page-header-flex {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 16px;
+    }
+    
+    .btn-green-pill {
+        width: 100%;
+    }
+}

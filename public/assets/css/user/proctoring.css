@@ -1,0 +1,91 @@
+#proctoring-fixed-layer {
+    position: fixed;
+    top: 85px;
+    right: 20px;
+    z-index: 9999;
+    width: 220px;
+    height: 180px;
+    min-width: 160px;
+    min-height: 120px;
+    resize: both;
+    overflow: hidden;
+    background: #000;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    border: 2px solid #059669;
+    display: flex;
+    flex-direction: column;
+    touch-action: none;
+}
+
+#proctoring-drag-handle {
+    height: 24px;
+    background: #059669;
+    cursor: move;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    flex-shrink: 0;
+}
+
+#proctoring-drag-handle div {
+    width: 30px;
+    height: 4px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 2px;
+}
+
+#proctoring-video-wrapper {
+    position: relative;
+    flex-grow: 1;
+    width: 100%;
+    height: calc(100% - 24px);
+    overflow: hidden;
+}
+
+#proctoring-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: #222;
+    pointer-events: none;
+}
+
+#proctor-ai-status {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    font-size: 10px;
+    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    pointer-events: none;
+}
+
+#status-dot {
+    width: 8px;
+    height: 8px;
+    background: #10b981;
+    border-radius: 50%;
+}
+
+#proctoring-warning-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(239, 68, 68, 0.9);
+    color: white;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 12px;
+    pointer-events: none;
+}

@@ -1,0 +1,430 @@
+/* 
+    -------------------------------------------------------------------------
+    ZIEXAM AI - ENTERPRISE SETTINGS THEME
+    File: public/assets/css/admin-settings.css
+    Version: 5.6 (Mobile Topbar Fix)
+    -------------------------------------------------------------------------
+*/
+
+:root {
+    /* Theme Variables */
+    --st-font-main: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --st-sidebar-width: 260px;
+    --st-header-offset: 90px;
+    --st-radius: 10px;
+    --st-radius-sm: 6px;
+
+    /* Colors */
+    --st-bg-body: #f8fafc;
+    --st-bg-card: #ffffff;
+    --st-bg-hover: #f1f5f9;
+    --st-bg-active: #f1f5f9;
+    --st-border: #e2e8f0;
+    --st-text-main: #0f172a;
+    --st-text-muted: #64748b;
+    --st-text-subtle: #94a3b8;
+    --st-accent: #0f172a;
+    --st-success: #10b981;
+    --st-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.04);
+}
+
+[data-bs-theme="dark"] {
+    --st-bg-body: #0f172a;
+    --st-bg-card: #1e293b;
+    --st-bg-hover: #334155;
+    --st-bg-active: #334155;
+    --st-border: #334155;
+    --st-text-main: #f8fafc;
+    --st-text-muted: #94a3b8;
+    --st-text-subtle: #64748b;
+    --st-accent: #f8fafc;
+    --st-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+/* ==================================================================
+   1. LAYOUT
+   ================================================================== */
+
+.settings-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+    width: 100%;
+    position: relative;
+}
+
+.settings-content {
+    flex: 1;
+    min-width: 0;
+}
+
+/* ==================================================================
+   2. SIDEBAR AREA (Mobile & Desktop)
+   ================================================================== */
+
+/* DESKTOP (Large Screens) */
+@media (min-width: 992px) {
+    .settings-sidebar-area {
+        width: var(--st-sidebar-width);
+        flex-shrink: 0;
+        position: sticky;
+        top: var(--st-header-offset);
+        max-height: calc(100vh - 120px);
+    }
+
+    .settings-sidebar-wrapper {
+        background: var(--st-bg-card);
+        border: 1px solid var(--st-border);
+        border-radius: var(--st-radius);
+        padding: 20px 12px;
+        box-shadow: var(--st-shadow);
+        height: 100%;
+        overflow-y: auto;
+        scrollbar-width: none;
+    }
+    .settings-sidebar-wrapper::-webkit-scrollbar { display: none; }
+}
+
+/* MOBILE (Small Screens) */
+@media (max-width: 991.98px) {
+    .settings-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .settings-sidebar-area {
+        width: 100%;
+        /* FIX: Ensure sticky position clears the topbar */
+        position: sticky;
+        top: 70px; /* Assuming topbar is ~70px high */
+        z-index: 99; /* Ensure the filter button is visible */
+        
+        background-color: var(--st-bg-body); 
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    /* Offcanvas Specifics */
+    .offcanvas-lg.settings-sidebar-wrapper {
+        background-color: var(--st-bg-card);
+    }
+    
+    .offcanvas-body .nav-settings {
+        padding: 20px 12px;
+        overflow-y: auto;
+    }
+}
+
+/* ==================================================================
+   3. NAVIGATION ITEMS
+   ================================================================== */
+/* Utility Classes for Mobile Toggle (Rule 2 Fixes) */
+.fs-sm { font-size: 0.8rem !important; }
+.fs-xs { font-size: 0.75rem !important; }
+.mobile-icon-box { width: 28px; height: 28px; }
+
+.settings-group { margin-bottom: 20px; }
+.settings-group:last-child { margin-bottom: 0; }
+
+.settings-group-header {
+    width: 100%;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 12px 8px 12px;
+    background: transparent; border: none; cursor: pointer;
+    font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.05em; color: var(--st-text-subtle);
+    transition: color 0.2s;
+}
+.settings-group-header:hover { color: var(--st-text-muted); }
+
+/* Premium Group Icons */
+.group-icon {
+    width: 28px; height: 28px; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem; flex-shrink: 0;
+}
+
+/* Color Classes for Group Icons (Rule 2 Fixes) */
+.group-icon-blue { background-color: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+.group-icon-purple { background-color: rgba(139, 92, 246, 0.1); color: #8b5cf6; }
+.group-icon-orange { background-color: rgba(249, 115, 22, 0.1); color: #f97316; }
+.group-icon-green { background-color: rgba(16, 185, 129, 0.1); color: #10b981; }
+.group-icon-cyan { background-color: rgba(6, 182, 212, 0.1); color: #06b6d4; }
+.group-icon-indigo { background-color: rgba(99, 102, 241, 0.1); color: #6366f1; }
+.group-icon-pink { background-color: rgba(236, 72, 153, 0.1); color: #ec4899; }
+.group-icon-teal { background-color: rgba(20, 184, 166, 0.1); color: #14b8a6; }
+
+.group-arrow { font-size: 0.65rem; transition: transform 0.2s ease; opacity: 0.7; }
+.settings-group-header.collapsed .group-arrow { transform: rotate(-90deg); }
+
+/* Nav Links */
+.nav-settings { display: flex; flex-direction: column; gap: 2px; }
+
+.nav-settings .nav-link {
+    display: flex; align-items: center; gap: 12px;
+    padding: 8px 12px; width: 100%;
+    background: transparent; border: 1px solid transparent;
+    border-radius: var(--st-radius-sm);
+    color: var(--st-text-muted); text-align: left;
+    transition: all 0.2s ease;
+}
+.nav-settings .nav-link:hover { background-color: var(--st-bg-hover); color: var(--st-text-main); }
+.nav-settings .nav-link.active { background-color: var(--st-bg-active); color: var(--st-text-main); font-weight: 500; }
+
+/* Sub-Menu Icons (Smaller) */
+.nav-icon-wrapper {
+    width: 20px; height: 20px; display: flex;
+    align-items: center; justify-content: center; flex-shrink: 0;
+    color: var(--st-text-subtle);
+    transition: color 0.2s ease;
+}
+.nav-icon-wrapper i { font-size: 0.8rem !important; } /* Force size */
+
+.nav-settings .nav-link:hover .nav-icon-wrapper { color: var(--st-text-muted); }
+.nav-settings .nav-link.active .nav-icon-wrapper { color: var(--st-accent); }
+
+.nav-text { display: flex; flex-direction: column; overflow: hidden; line-height: 1.25; }
+.nav-title { font-size: 0.875rem; font-weight: 500; }
+.nav-settings .nav-link.active .nav-title { font-weight: 600; }
+.nav-subtitle {
+    font-size: 0.7rem; color: var(--st-text-subtle);
+    font-weight: 400; white-space: nowrap; overflow: hidden;
+    text-overflow: ellipsis; margin-top: 1px;
+}
+
+/* Footer */
+.settings-footer {
+    margin-top: 32px; padding-top: 16px;
+    border-top: 1px solid var(--st-border);
+    display: flex; flex-direction: column; gap: 8px;
+}
+.footer-meta, .footer-status {
+    display: flex; align-items: center; gap: 10px;
+    padding: 0 12px; font-size: 0.75rem;
+    color: var(--st-text-subtle); font-weight: 500;
+}
+.status-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background-color: var(--st-success);
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.15);
+}
+
+/* ==================================================================
+   4. GENERAL STYLES (Cards, Inputs, Toggles)
+   ================================================================== */
+.setting-card {
+    background: var(--st-bg-card);
+    border: 1px solid var(--st-border);
+    border-radius: var(--st-radius);
+    padding: 32px; margin-bottom: 24px;
+    box-shadow: var(--st-shadow);
+}
+.setting-header { margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--st-border); }
+.setting-title { font-size: 1.25rem; font-weight: 700; color: var(--st-text-main); margin-bottom: 6px; letter-spacing: -0.01em; }
+.setting-desc { font-size: 0.925rem; color: var(--st-text-muted); margin: 0; line-height: 1.5; }
+
+.form-label-premium { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--st-text-muted); margin-bottom: 8px; display: block; }
+.form-control-premium { display: block; width: 100%; padding: 10px 14px; font-size: 0.925rem; line-height: 1.5; color: var(--st-text-main); background-color: var(--st-bg-card); border: 1px solid var(--st-border); border-radius: var(--st-radius-sm); transition: border-color 0.15s, box-shadow 0.15s; }
+.form-control-premium:focus { border-color: var(--st-text-muted); outline: 0; box-shadow: 0 0 0 3px var(--st-bg-hover); }
+
+/* Toggles */
+.form-switch .form-check-input { width: 2.75em; height: 1.5em; background-color: #cbd5e1; border: 1px solid transparent; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e"); transition: background-position 0.15s ease-in-out, background-color 0.2s; cursor: pointer; }
+.form-switch .form-check-input:checked { background-color: var(--st-success); background-position: right center; border-color: transparent; }
+[data-bs-theme="dark"] .form-switch .form-check-input { background-color: #475569; border: 1px solid #64748b; }
+[data-bs-theme="dark"] .form-switch .form-check-input:checked { background-color: var(--st-success); border-color: var(--st-success); }
+
+/* ==================================================================
+   5. ROLES (Ensure these exist for Roles Page)
+   ================================================================== */
+.role-card { border: 1px solid var(--st-border); border-radius: var(--st-radius); padding: 24px; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; height: 100%; display: flex; flex-direction: column; background: var(--st-bg-card); position: relative; overflow: hidden; }
+.role-card:hover { transform: translateY(-2px); box-shadow: var(--st-shadow-card); border-color: var(--st-text-muted); }
+.role-icon { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; margin-bottom: 16px; }
+.role-admin { background: var(--role-admin-bg); color: var(--role-admin-text); }
+.role-manager { background: var(--role-manager-bg); color: var(--role-manager-text); }
+.role-student { background: var(--role-student-bg); color: var(--role-student-text); }
+.role-default { background: var(--role-default-bg); color: var(--role-default-text); }
+.perm-group-header { background: var(--st-bg-hover); color: var(--st-text-main); padding: 10px 14px; border-radius: var(--st-radius-sm); font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 12px; margin-top: 16px; }
+.perm-check-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px dashed var(--st-border); }
+.perm-check-item:last-child { border-bottom: none; }
+.perm-label { font-size: 0.9rem; color: var(--st-text-main); font-weight: 500; }
+
+
+/* Safety: never hide the collapse button */
+#sidebar-toggle {
+    display: grid !important;
+    pointer-events: auto !important;
+}
+.setting-icon-box {
+    width: 48px;
+    height: 48px;
+}
+
+.setting-icon {
+    font-size: 1.25rem !important;
+}
+
+.password-toggle-btn {
+    z-index: 5;
+}
+
+/* --- Core Settings Specific Fixes --- */
+.system-label {
+    font-size: 0.85rem !important;
+    letter-spacing: 0.05em;
+}
+
+.system-small {
+    font-size: 0.7rem !important;
+}
+
+.system-badge {
+    font-size: 0.65rem !important;
+}
+
+.setting-card {
+    background: var(--st-bg-card);
+    border: 1px solid var(--st-border);
+    border-radius: var(--st-radius);
+    padding: 32px; margin-bottom: 24px;
+    box-shadow: var(--st-shadow);
+}
+.setting-header { margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--st-border); }
+.setting-title { font-size: 1.25rem; font-weight: 700; color: var(--st-text-main); margin-bottom: 6px; letter-spacing: -0.01em; }
+.setting-desc { font-size: 0.925rem; color: var(--st-text-muted); margin: 0; line-height: 1.5; }
+.maintenance-status-card {
+    border: 1px solid var(--st-border);
+    transition: all 0.2s ease;
+}
+
+.maintenance-icon-box {
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+}
+
+.maintenance--active {
+    background-color: #fff5f5; /* Light Red */
+    border-color: #feb2b2 !important; /* Soft Red Border */
+}
+.maintenance--active .maintenance-icon-box {
+    background-color: #fde8e8; /* Lighter Red */
+}
+.maintenance--active .status-icon {
+    color: #dc3545; /* Red */
+}
+
+.maintenance--inactive {
+    background-color: #f0fdfa; /* Light Teal */
+    border-color: #99f6e4 !important; /* Soft Teal Border */
+}
+.maintenance--inactive .maintenance-icon-box {
+    background-color: #ecfdf5; /* Lighter Teal */
+}
+.maintenance--inactive .status-icon {
+    color: #10b981; /* Green/Success */
+}
+
+.maintenance-toggle-scale {
+    transform: scale(1.3);
+}
+
+.border-dashed {
+    border-style: dashed !important;
+}
+
+.maintenance-image-preview-existing {
+    max-height: 180px; 
+    object-fit: cover;
+    width: auto;
+}
+
+.maintenance-preview-img {
+    max-height: 150px; /* Used for JS dynamic preview */
+}
+
+.maintenance-access-icon-box {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+}
+.roles-grid-container {
+    background-color: var(--st-bg-hover); 
+    border-color: var(--st-border) !important;
+}
+
+.role-card-inner {
+    background-color: var(--st-bg-card); 
+    border: 1px solid var(--st-border); 
+    box-shadow: var(--st-shadow);
+    border-color: var(--st-border);
+    transition: all 0.2s ease;
+}
+
+/* ❌ FIX 1: Active state managed by class */
+.role-card-inner.is-active {
+    border-color: var(--st-success) !important;
+    outline: 1px solid var(--st-success);
+    box-shadow: none;
+}
+
+.role-icon-box {
+    width: 48px; 
+    height: 48px; 
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.role-footer-divider {
+    border-color: var(--st-border) !important;
+}
+
+.role-badge-locked {
+    background-color: var(--st-accent); /* Using theme variable instead of hardcoded #0f172a */
+    color: var(--st-bg-card);
+    border: 1px solid var(--st-border);
+}
+
+.role-badge-custom {
+    background-color: var(--st-bg-hover); 
+    color: var(--st-text-muted);
+    border: 1px solid var(--st-border);
+}
+
+.permission-matrix-header {
+    border-color: var(--st-border) !important;
+}
+
+.permission-matrix-icon-box {
+    width: 42px; 
+    height: 42px; 
+    background-color: var(--st-bg-hover); 
+    border-color: var(--st-border) !important;
+}
+
+.permission-group-header-style {
+    font-size: 0.75rem; 
+    letter-spacing: 0.05em; 
+    background-color: var(--st-bg-hover);
+}
+
+.permission-item-divider {
+    border-color: var(--st-border) !important;
+}
+
+.modal-content-card {
+    background-color: var(--st-bg-card);
+}
+
+.btn-primary-inverted {
+    /* Used for the Update Role button */
+    background-color: var(--st-text-main) !important; 
+    border-color: var(--st-text-main) !important;
+}
+
+/* Utility for smaller buttons in the roles grid */
+.setting-icon-box-sm {
+    width: 28px; 
+    height: 28px;
+}
+.fs-xs { font-size: 0.7rem !important; }
+.fs-sm { font-size: 0.85rem !important; }

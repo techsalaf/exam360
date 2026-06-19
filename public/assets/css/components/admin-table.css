@@ -1,0 +1,86 @@
+/* 
+    -------------------------------------------------------------------------
+    COMPONENT: ADMIN DATA TABLE (Flexbox Based)
+    Description: Reusable list view for any data type (Users, Exams, etc)
+    -------------------------------------------------------------------------
+*/
+
+:root {
+    --table-bg: #ffffff;
+    --table-border: #e2e8f0;
+    --table-hover: #f8fafc;
+    --table-header-bg: #f8fafc;
+    --table-text: #0f172a;
+    --table-text-muted: #64748b;
+}
+
+[data-bs-theme="dark"] {
+    --table-bg: #1e293b;
+    --table-border: #334155;
+    --table-hover: #0f172a;
+    --table-header-bg: #0f172a;
+    --table-text: #f1f5f9;
+    --table-text-muted: #94a3b8;
+}
+
+/* Container */
+.zi-table-container {
+    background: var(--table-bg);
+    border: 1px solid var(--table-border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+}
+
+/* Header Row */
+.zi-table-header {
+    display: flex;
+    padding: 14px 24px;
+    background: var(--table-header-bg);
+    border-bottom: 1px solid var(--table-border);
+}
+.zi-table-empty-icon {
+    font-size: 2rem;
+    opacity: 0.5;
+    margin-bottom: 1rem;
+}
+
+.zi-col-header {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--table-text-muted);
+}
+
+/* Rows */
+.zi-table-row {
+    display: flex;
+    align-items: center;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--table-border);
+    background: var(--table-bg);
+    transition: background 0.2s;
+}
+.zi-table-row:hover { background: var(--table-hover); }
+.zi-table-row:last-child { border-bottom: none; }
+
+/* Empty State */
+.zi-table-empty {
+    padding: 60px 20px;
+    text-align: center;
+    color: var(--table-text-muted);
+}
+
+/* Standard Column Widths (Can be overridden inline) */
+.col-flex-4 { flex: 4; }
+.col-flex-3 { flex: 3; }
+.col-flex-2 { flex: 2; }
+.col-flex-1 { flex: 1.5; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .zi-table-header { display: none; }
+    .zi-table-row { flex-wrap: wrap; gap: 12px; }
+    .col-flex-4, .col-flex-3, .col-flex-2, .col-flex-1 { width: 100%; flex: none; }
+}

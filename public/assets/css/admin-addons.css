@@ -1,0 +1,272 @@
+:root {
+    --zi-primary-green: #059669;
+    --zi-primary-dark:  #047857;
+    --zi-primary-light: #ecfdf5;
+    --zi-switch-bg-on:  #059669;
+    --zi-switch-bg-off: #cbd5e1;
+    
+    --zi-bg-body:       #f8fafc;
+    --zi-bg-card:       #ffffff;
+    --zi-bg-header:     #f1f5f9;
+    --zi-text-main:     #0f172a;
+    --zi-text-muted:    #64748b;
+    --zi-border:        #e2e8f0;
+    --zi-modal-bg:      #ffffff;
+}
+
+[data-bs-theme="dark"] {
+    --zi-bg-body:       #0f172a; 
+    --zi-bg-card:       #1e293b; 
+    --zi-bg-header:     #0f172a; 
+    --zi-text-main:     #f8fafc; 
+    --zi-text-muted:    #94a3b8; 
+    --zi-border:        #334155; 
+    --zi-modal-bg:      #1e293b; 
+    --zi-primary-light: rgba(5, 150, 105, 0.15); 
+    --zi-switch-bg-off: #475569;
+}
+
+.card-rounded { border-radius: 16px; overflow: hidden; }
+.text-dark { color: var(--zi-text-main) !important; }
+.text-muted { color: var(--zi-text-muted) !important; }
+
+.card {
+    background-color: var(--zi-bg-card);
+    border: 1px solid var(--zi-border);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.addon-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.addon-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--zi-bg-header);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    color: var(--zi-primary-green);
+    border: 1px solid var(--zi-border);
+}
+
+.addon-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 12px;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.status-active {
+    background-color: var(--zi-primary-light);
+    color: var(--zi-primary-green);
+    border: 1px solid rgba(5, 150, 105, 0.2);
+}
+
+.status-inactive {
+    background-color: rgba(220, 38, 38, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(220, 38, 38, 0.2);
+}
+
+.form-switch .form-check-input {
+    background-color: var(--zi-switch-bg-off);
+    border-color: var(--zi-switch-bg-off);
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, transform 0.15s ease-in-out;
+}
+
+.form-switch .form-check-input:checked {
+    background-color: var(--zi-switch-bg-on);
+    border-color: var(--zi-switch-bg-on);
+    box-shadow: none;
+}
+
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.25rem rgba(5, 150, 105, 0.25);
+    border-color: var(--zi-switch-bg-on);
+}
+
+
+.btn-green-pill {
+    background-color: var(--zi-primary-green);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 24px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+
+.btn-green-pill:hover {
+    background-color: var(--zi-primary-dark);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2);
+}
+
+.btn-icon-pill {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid var(--zi-border);
+    color: var(--zi-text-muted);
+    transition: all 0.2s;
+}
+
+.btn-icon-pill:hover {
+    border-color: var(--zi-primary-green);
+    color: var(--zi-primary-green);
+    background: var(--zi-primary-light);
+}
+
+.btn-icon-pill.delete:hover {
+    border-color: #ef4444;
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+}
+
+/* --- Modal Overrides --- */
+
+.modal-content {
+    background-color: var(--zi-modal-bg);
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--zi-border);
+    padding: 20px 24px;
+}
+
+.modal-body {
+    padding: 32px 24px;
+}
+
+.modal-title { color: var(--zi-text-main); }
+.btn-close { filter: invert(var(--zi-btn-close-invert, 0)); }
+[data-bs-theme="dark"] .btn-close { filter: invert(1) grayscale(100%) brightness(200%); }
+
+/* --- Upload Area Styles --- */
+
+.addon-upload-area {
+    border: 1px dashed var(--zi-border); /* Changed to dashed from none for default state */
+    background: var(--zi-bg-card);
+    padding: 32px;
+    border-radius: 12px;
+    position: relative;
+    transition: all 0.2s;
+    text-align: center;
+    cursor: pointer;
+}
+
+.addon-upload-area:hover {
+    border-color: var(--zi-primary-green);
+    background: var(--zi-primary-light);
+    border-style: dashed;
+}
+
+/* Specific hover state to match the dotted line in the screenshot */
+.addon-upload-area:hover {
+    border-color: var(--zi-primary-green);
+    border-style: dashed;
+}
+
+.upload-content {
+    pointer-events: none; /* ensures click passes through to the file input */
+}
+
+.upload-icon-circle {
+    width: 54px;
+    height: 54px;
+    margin: 0 auto;
+    background: var(--zi-primary-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--zi-primary-green);
+    transition: all 0.2s;
+}
+
+.upload-icon-circle svg {
+    width: 28px;
+    height: 28px;
+    color: var(--zi-primary-green);
+}
+
+.addon-upload-area:hover .upload-icon-circle {
+    background: var(--zi-bg-card);
+}
+
+.addon-file-input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.modal-info-alert {
+    background: var(--zi-bg-header);
+    border: none;
+    color: var(--zi-text-muted);
+    padding: 1rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.modal-info-alert svg {
+    color: var(--zi-text-body);
+    flex-shrink: 0;
+}
+
+[data-bs-theme="dark"] .modal-info-alert {
+    background: #334155;
+    color: #cbd5e1;
+}
+
+[data-bs-theme="dark"] .modal-info-alert svg {
+    color: #94a3b8;
+}
+
+.modal-body .btn-green-pill {
+    margin-top: 1rem;
+    padding: 12px 24px;
+    font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+    .page-header-flex {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 16px;
+    }
+    .btn-green-pill { width: 100%; }
+}

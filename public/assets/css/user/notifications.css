@@ -1,0 +1,201 @@
+/* 
+    -------------------------------------------------------------------------
+    NOTIFICATIONS PAGE STYLES
+    Context: User Dashboard > Notifications
+    Depends on: user.css (Variables)
+    -------------------------------------------------------------------------
+*/
+
+/* --- Notification Card Container --- */
+.notification-card {
+    background: var(--zi-bg-card);
+    border: 1px solid var(--zi-border);
+    border-radius: var(--zi-radius);
+    overflow: hidden;
+    box-shadow: var(--zi-shadow);
+}
+
+/* --- List Item Base Styles --- */
+.notification-item {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--zi-bg-hover);
+    display: flex;
+    gap: 20px;
+    position: relative;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    background-color: var(--zi-bg-card); /* Default Read State */
+}
+
+.notification-item:last-child {
+    border-bottom: none;
+}
+
+/* Hover Effect */
+.notification-item:hover {
+    background-color: #fcfdfd;
+    z-index: 1; /* Bring above to prevent shadow clipping if added later */
+}
+
+/* --- UNREAD STATE (Soft Premium Green) --- */
+.notification-item.unread {
+    background-color: #f6fbf8; /* Very faint green tint */
+    border-left: 3px solid #10b981; /* Green accent border */
+    padding-left: 21px; /* Compensate for 3px border to align content */
+}
+
+/* --- Icon Styles --- */
+.notification-icon-wrapper {
+    flex-shrink: 0;
+}
+
+.notification-icon-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+
+/* Custom Icon Variants */
+.icon-soft-green {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+}
+
+.icon-success {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+}
+
+.icon-warning {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: #f59e0b;
+}
+
+.icon-danger {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}
+
+/* --- Content Typography --- */
+.notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 6px;
+}
+
+.notification-title {
+    font-weight: 700;
+    color: var(--zi-text-main);
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+.notification-time {
+    font-size: 0.75rem;
+    color: var(--zi-text-muted);
+    font-weight: 500;
+    white-space: nowrap;
+    margin-left: 12px;
+}
+
+.notification-message {
+    font-size: 0.9rem;
+    color: var(--zi-text-body);
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+/* --- Action Buttons --- */
+.btn-mark-read {
+    background-color: var(--zi-bg-card);
+    border: 1px solid var(--zi-border);
+    color: var(--zi-text-body);
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-mark-read:hover {
+    background-color: var(--zi-bg-hover);
+    border-color: #cbd5e1;
+    color: var(--zi-text-main);
+}
+
+.link-details {
+    color: var(--zi-primary-600);
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: gap 0.2s ease;
+}
+
+.link-details:hover {
+    color: var(--zi-primary-700);
+    gap: 6px; /* Animated arrow effect */
+}
+
+/* Delete Button */
+.btn-delete-notification {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    color: var(--zi-text-muted);
+    opacity: 0.4;
+    transition: all 0.2s;
+    background: none;
+    border: none;
+    padding: 4px;
+}
+
+.btn-delete-notification:hover {
+    opacity: 1;
+    color: #ef4444; /* Danger color on hover */
+    transform: scale(1.1);
+}
+
+/* --- Empty State --- */
+.notification-empty {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.empty-icon-circle {
+    width: 64px;
+    height: 64px;
+    background-color: var(--zi-bg-hover);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    color: var(--zi-text-muted);
+}
+
+/* --- Pagination Customization --- */
+.notifications-pagination {
+    padding: 20px;
+    background: var(--zi-bg-card);
+    border-top: 1px solid var(--zi-border);
+}
+/* --- Content Typography (FIX 2) --- */
+.notification-content {
+    flex-grow: 1;
+    padding-right: 32px;
+}
+
+/* --- Empty State (FIX 2) --- */
+.notification-empty-title {
+    color: var(--zi-text-main);
+}

@@ -1,0 +1,35 @@
+/* PREMIUM PAGINATION STYLES */
+.pagination-premium { display: flex; gap: 6px; }
+.pagination-premium .page-item { margin: 0; }
+
+.pagination-premium .page-link {
+    width: 36px; height: 36px;
+    border-radius: 8px !important;
+    display: grid; place-items: center;
+    font-weight: 600; font-size: 0.85rem;
+    color: #64748b; /* Muted Text */
+    border: 1px solid transparent;
+    background-color: transparent;
+    transition: all 0.2s;
+    margin: 0; text-decoration: none;
+}
+
+.pagination-premium .page-link:hover {
+    background-color: #f8fafc; /* Hover BG */
+    color: #0f172a; /* Dark Text */
+    transform: translateY(-2px);
+}
+
+.pagination-premium .page-item.active .page-link {
+    background-color: #059669; /* Primary */
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.pagination-premium .page-item.disabled .page-link {
+    color: #e2e8f0; /* Disabled Color */
+    cursor: default;
+}
+.pagination-premium .page-item.disabled .page-link:hover {
+    transform: none; background: transparent;
+}

@@ -1,0 +1,427 @@
+/* 
+    ZIEXAM AI - ADMIN NOTIFICATIONS MODULE
+    --------------------------------------------------
+*/
+
+:root {
+    --notif-primary: #6366f1;
+    --notif-bg-light: #f8fafc;
+    --notif-border: #e2e8f0;
+    --notif-text: #0f172a;
+    --notif-muted: #64748b;
+    --notif-radius: 12px;
+    
+    /* Light Mode Type Colors */
+    --type-user-bg: #eff6ff;
+    --type-user-text: #3b82f6;
+    
+    --type-payment-bg: #ecfdf5;
+    --type-payment-text: #059669;
+    
+    --type-ticket-bg: #fffbeb;
+    --type-ticket-text: #d97706;
+    
+    --type-live-bg: #fef2f2;
+    --type-live-text: #ef4444;
+    
+    --type-system-bg: #f1f5f9;
+    --type-system-text: #475569;
+}
+
+/* --- Utilities (Replacing inline styles) --- */
+.h-46 { height: 46px; }
+.h-44 { height: 44px; }
+.radius-12 { border-radius: 12px; }
+.fs-095 { font-size: 0.95rem; }
+.fs-08 { font-size: 0.8rem; }
+.fs-3rem { font-size: 3rem; }
+.opacity-30 { opacity: 0.3; }
+.cursor-default { cursor: default; }
+.icon-center { top: 50%; transform: translateY(-50%); left: 14px; }
+.text-dark-blue { color: #1e40af; }
+.bg-white { background-color: #ffffff; }
+.offcanvas-auto { height: auto; }
+
+/* =========================================
+   1. LAYOUT & RESPONSIVE
+   ========================================= */
+
+.desktop-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.mobile-search-filter-bar { display: none; }
+.mobile-sticky-unread { display: none; }
+
+@media (max-width: 991px) {
+    .desktop-header { display: none !important; }
+    
+    .mobile-search-filter-bar {
+        display: flex;
+        gap: 10px;
+        margin-top: 4.5rem;
+        margin-bottom: 1rem;
+        position: relative;
+        z-index: 5;
+    }
+
+    .mobile-sticky-unread {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #eff6ff;
+        border: 1px solid #bfdbfe;
+        color: #1e40af;
+        padding: 10px 16px;
+        border-radius: 10px;
+        margin-bottom: 16px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    }
+
+    .list-header { display: none !important; }
+    
+    .notif-list-container { 
+        background: transparent !important; 
+        border: none !important; 
+        box-shadow: none !important; 
+        overflow: visible !important;
+    }
+
+    .list-item {
+        display: grid !important;
+        grid-template-columns: 48px 1fr;
+        grid-template-areas:
+            "icon content"
+            "icon meta"
+            "action action";
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 14px;
+        padding: 16px;
+        margin-bottom: 12px;
+        gap: 8px 12px;
+    }
+
+    .list-item.unread {
+        border-left: 4px solid var(--notif-primary);
+        background: #fdfdfd;
+    }
+
+    .col-icon    { grid-area: icon; align-self: start; }
+    .col-content { grid-area: content; align-self: center; }
+    
+    .col-meta-mobile {
+        grid-area: meta;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 4px;
+    }
+
+    .col-action { 
+        grid-area: action; 
+        margin-top: 12px; 
+        padding-top: 12px; 
+        border-top: 1px dashed #e2e8f0; 
+    }
+
+    .col-type, .col-date { display: none; }
+
+    .notif-title { font-size: 14px; font-weight: 600; color: var(--notif-text); line-height: 1.3; }
+    .notif-desc { font-size: 13px; color: var(--notif-muted); margin-top: 2px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .unread .notif-title { color: #000; font-weight: 700; }
+
+    .mobile-date { font-size: 12px; color: var(--notif-muted); }
+
+    .action-btn-group { 
+        width: 100%; 
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); 
+        gap: 10px;
+    }
+    
+    .btn-mobile-action {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 36px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none;
+        border: 1px solid #e2e8f0;
+        background: #fff;
+        color: var(--notif-text);
+        transition: all 0.15s;
+    }
+    
+    .btn-mobile-action.mark-read { background: #f0fdf4; color: #166534; border-color: #bbf7d0; }
+    .btn-mobile-action.delete { background: #fef2f2; color: #991b1b; border-color: #fecaca; }
+    .btn-mobile-action:active { transform: scale(0.98); }
+}
+
+/* =========================================
+   2. KPI STATISTICS GRID
+   ========================================= */
+
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.kpi-card {
+    background: #ffffff;
+    border: 1px solid var(--notif-border);
+    border-radius: var(--notif-radius);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.kpi-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+    border-color: var(--notif-primary);
+}
+
+.kpi-content h2 { font-size: 1.5rem; font-weight: 700; color: var(--notif-text); margin: 0; }
+.kpi-content p { margin: 4px 0 0; font-size: 0.85rem; color: var(--notif-muted); }
+
+.kpi-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+.kpi-primary .kpi-icon-wrapper { background: #e0e7ff; color: #6366f1; }
+.kpi-warning .kpi-icon-wrapper { background: #fff7ed; color: #f97316; }
+.kpi-success .kpi-icon-wrapper { background: #ecfdf5; color: #059669; }
+
+/* =========================================
+   3. NOTIFICATION LIST (Desktop)
+   ========================================= */
+
+.notif-list-container {
+    background: #ffffff;
+    border: 1px solid var(--notif-border);
+    border-radius: var(--notif-radius);
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.list-header {
+    display: flex;
+    padding: 12px 24px;
+    background: var(--notif-bg-light);
+    border-bottom: 1px solid var(--notif-border);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--notif-muted);
+    letter-spacing: 0.05em;
+}
+
+.list-item {
+    display: flex;
+    align-items: center;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--notif-border);
+    transition: background-color 0.15s;
+}
+
+.list-item:last-child { border-bottom: none; }
+.list-item:hover { background-color: #f8fafc; }
+
+.list-item.unread { background-color: #f8fafc; }
+.list-item.unread .notif-title { color: #0f172a; font-weight: 700; position: relative; }
+.list-item.unread .notif-title::before {
+    content: '';
+    position: absolute;
+    left: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    background-color: #ef4444;
+    border-radius: 50%;
+}
+
+@media (min-width: 992px) {
+    .col-icon { width: 60px; flex-shrink: 0; }
+    .col-content { flex: 3; padding-right: 20px; }
+    .col-type { width: 120px; flex-shrink: 0; }
+    .col-date { width: 180px; flex-shrink: 0; text-align: right; padding-right: 24px; }
+    .col-action { width: 120px; flex-shrink: 0; display: flex; justify-content: flex-end; }
+    
+    .icon-box {
+        width: 40px; height: 40px;
+        border-radius: 10px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.1rem;
+    }
+    
+    .notif-title { font-size: 0.95rem; font-weight: 600; color: var(--notif-text); margin-bottom: 2px; }
+    .notif-desc { font-size: 0.85rem; color: var(--notif-muted); }
+    .col-meta-mobile { display: none; }
+    
+    .type-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: capitalize;
+    }
+
+    .date-text { font-size: 0.85rem; color: var(--notif-muted); display: block; }
+    .date-rel { font-size: 0.75rem; color: #94a3b8; }
+}
+
+/* Light Mode Badges & Icon Colors */
+.bg-info-subtle { background-color: var(--type-user-bg); color: var(--type-user-text); }
+.bg-success-subtle { background-color: var(--type-payment-bg); color: var(--type-payment-text); }
+.bg-warning-subtle { background-color: var(--type-ticket-bg); color: var(--type-ticket-text); }
+.bg-danger-subtle { background-color: var(--type-live-bg); color: var(--type-live-text); }
+.bg-secondary-subtle { background-color: var(--type-system-bg); color: var(--type-system-text); }
+.bg-primary-subtle { background-color: #e0e7ff; color: #6366f1; }
+
+.type-user { background: var(--type-user-bg); color: var(--type-user-text); }
+.type-payment { background: var(--type-payment-bg); color: var(--type-payment-text); }
+.type-ticket { background: var(--type-ticket-bg); color: var(--type-ticket-text); }
+.type-live { background: var(--type-live-bg); color: var(--type-live-text); }
+.type-system { background: var(--type-system-bg); color: var(--type-system-text); }
+
+/* Desktop Buttons Base (Light Mode) */
+.btn-icon-action {
+    width: 34px; height: 34px; 
+    border-radius: 8px; /* Slightly squarer for modern look */
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--notif-border); 
+    background: white; 
+    color: var(--notif-muted); 
+    transition: all 0.2s ease; 
+    cursor: pointer;
+}
+
+.btn-icon-action:hover { transform: translateY(-1px); }
+.btn-icon-action.view:hover { color: #3b82f6; border-color: #3b82f6; background: #eff6ff; }
+.btn-icon-action.read:hover { color: #059669; border-color: #059669; background: #ecfdf5; }
+.btn-icon-action.delete:hover { color: #ef4444; border-color: #ef4444; background: #fef2f2; }
+
+/* =========================================
+   4. DARK MODE SUPPORT
+   ========================================= */
+
+[data-bs-theme="dark"] .kpi-card, 
+[data-bs-theme="dark"] .notif-list-container { 
+    background: #1e293b; 
+    border-color: #334155; 
+}
+
+/* KPI Text */
+[data-bs-theme="dark"] .kpi-content h2 { color: #ffffff !important; }
+[data-bs-theme="dark"] .kpi-content p { color: #94a3b8; }
+
+/* List Styles */
+[data-bs-theme="dark"] .list-header { background: #0f172a; border-color: #334155; }
+[data-bs-theme="dark"] .list-item { border-color: #334155; background: #1e293b; }
+[data-bs-theme="dark"] .list-item:hover { background: #1f2937; }
+
+/* Unread State Dark Mode */
+[data-bs-theme="dark"] .list-item.unread { background-color: #1e293b; border-left-color: #6366f1; }
+[data-bs-theme="dark"] .list-item.unread .notif-title { color: #fff; }
+
+/* Text Colors */
+[data-bs-theme="dark"] .notif-title { color: #f1f5f9; }
+[data-bs-theme="dark"] .notif-desc, 
+[data-bs-theme="dark"] .date-text,
+[data-bs-theme="dark"] .date-rel { color: #94a3b8; }
+
+/* -------------------------------------------------------------------------
+   DARK MODE: SOFT/TRANSPARENT BADGES & ICONS
+   ------------------------------------------------------------------------- */
+
+/* Icon Boxes & Badges (Soft RGBA backgrounds) */
+[data-bs-theme="dark"] .bg-info-subtle, [data-bs-theme="dark"] .type-user { 
+    background: rgba(59, 130, 246, 0.15); color: #60a5fa; 
+}
+
+[data-bs-theme="dark"] .bg-success-subtle, [data-bs-theme="dark"] .type-payment { 
+    background: rgba(16, 185, 129, 0.15); color: #34d399; 
+}
+
+[data-bs-theme="dark"] .bg-warning-subtle, [data-bs-theme="dark"] .type-ticket { 
+    background: rgba(245, 158, 11, 0.15); color: #fbbf24; 
+}
+
+[data-bs-theme="dark"] .bg-danger-subtle, [data-bs-theme="dark"] .type-live { 
+    background: rgba(239, 68, 68, 0.15); color: #f87171; 
+}
+
+[data-bs-theme="dark"] .bg-secondary-subtle, [data-bs-theme="dark"] .type-system { 
+    background: rgba(148, 163, 184, 0.15); color: #cbd5e1; 
+}
+
+/* -------------------------------------------------------------------------
+   DARK MODE: ACTION BUTTONS (Transparent)
+   ------------------------------------------------------------------------- */
+
+[data-bs-theme="dark"] .btn-icon-action {
+    background-color: transparent; /* No solid white bg */
+    border-color: #334155;         
+    color: #94a3b8;                
+}
+
+[data-bs-theme="dark"] .btn-icon-action:hover {
+    background-color: rgba(255,255,255,0.05);
+    color: #f1f5f9;
+    border-color: #475569;
+}
+
+/* Hover States with Soft Tinting in Dark Mode */
+[data-bs-theme="dark"] .btn-icon-action.view:hover {
+    border-color: #3b82f6;
+    color: #60a5fa;
+    background-color: rgba(59, 130, 246, 0.15);
+}
+
+[data-bs-theme="dark"] .btn-icon-action.read:hover {
+    border-color: #10b981;
+    color: #34d399;
+    background-color: rgba(16, 185, 129, 0.15);
+}
+
+[data-bs-theme="dark"] .btn-icon-action.delete:hover {
+    border-color: #ef4444;
+    color: #f87171;
+    background-color: rgba(239, 68, 68, 0.15);
+}
+
+/* Mobile Action Buttons Dark Mode */
+[data-bs-theme="dark"] .btn-mobile-action { background-color: #111827; border-color: #374151; color: #e5e7eb; }
+[data-bs-theme="dark"] .btn-mobile-action.mark-read { background-color: rgba(6, 95, 70, 0.2); border-color: #059669; color: #34d399; }
+[data-bs-theme="dark"] .btn-mobile-action.delete { background-color: rgba(153, 27, 27, 0.2); border-color: #ef4444; color: #fca5a5; }
+
+/* Filter Bar Dark Mode */
+[data-bs-theme="dark"] .mobile-search-filter-bar button,
+[data-bs-theme="dark"] .mobile-search-filter-bar input {
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+    color: #fff;
+}
