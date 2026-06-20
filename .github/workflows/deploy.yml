@@ -1,4 +1,4 @@
-name: Deploy to Namecheap cPanel
+name: Deploy to Namecheap cPanel via HTTP Webhook
 
 on:
   push:
@@ -15,86 +15,32 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup SSH
+      - name: Trigger Deployment Webhook
         run: |
-          set -x
-          mkdir -p ~/.ssh
+          echo "🚀 Triggering deployment on Namecheap server..."
           
-          # Check if secret exists and has content
-          if [ -z "${{ secrets.NAMECHEAP_SSH_KEY }}" ]; then
-            echo "❌ ERROR: NAMECHEAP_SSH_KEY secret not found or empty!"
-            echo "Add it at: https://github.com/techsalaf/exam360/settings/secrets/actions"
+          # Check if webhook URL exists
+          if [ -z "${{ secrets.NAMECHEAP_DEPLOY_WEBHOOK_URL }}" ]; then
+            echo "❌ ERROR: NAMECHEAP_DEPLOY_WEBHOOK_URL secret not found!"
+            echo "Create a deployment script on your server and add the URL as a secret"
             exit 1
           fi
           
-          echo "✅ Secret found, writing SSH key..."
-          echo "${{ secrets.NAMECHEAP_SSH_KEY }}" > ~/.ssh/id_rsa
+          # Call the webhook
+          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X POST \
+            "${{ secrets.NAMECHEAP_DEPLOY_WEBHOOK_URL }}" \
+            -H "Content-Type: application/json" \
+            -d "{\"branch\":\"main\",\"timestamp\":\"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"}")
           
-          # Verify key was written
-          if [ ! -f ~/.ssh/id_rsa ]; then
-            echo "❌ ERROR: SSH key file not created!"
+          echo "📡 Webhook Response: HTTP $RESPONSE"
+          
+          if [ "$RESPONSE" = "200" ]; then
+            echo "✅ Deployment triggered successfully!"
+          else
+            echo "❌ Webhook returned HTTP $RESPONSE (expected 200)"
             exit 1
           fi
-          
-          # Verify key is not empty
-          if [ ! -s ~/.ssh/id_rsa ]; then
-            echo "❌ ERROR: SSH key file is empty!"
-            exit 1
-          fi
-          
-          echo "✅ SSH key written successfully"
-          chmod 600 ~/.ssh/id_rsa
-          
-          echo "✅ Scanning host key for cbt.my360school.com..."
-          ssh-keyscan -H cbt.my360school.com >> ~/.ssh/known_hosts 2>&1 || {
-            echo "⚠️ Warning: ssh-keyscan failed, but continuing..."
-          }
-          
-          echo "✅ SSH setup complete"
-
-      - name: Deploy via SSH
-        run: |
-          set -x
-          echo "🔍 Checking SSH connection..."
-          ssh -v pnzjqabw@cbt.my360school.com "echo '✅ SSH connection successful'"
-          
-          echo "🚀 Starting deployment..."
-          ssh pnzjqabw@cbt.my360school.com "
-            set -e
-            
-            echo '📦 Navigating to project directory...'
-            cd /home/pnzjqabw/cbt
-            
-            echo '🔄 Pulling latest changes from GitHub...'
-            git fetch origin main
-            git reset --hard origin/main
-            
-            echo '📥 Installing PHP dependencies...'
-            composer install --no-dev --optimize-autoloader
-            
-            echo '📦 Installing Node dependencies...'
-            npm ci
-            
-            echo '🏗️  Building frontend assets...'
-            npm run build
-            
-            echo '🔑 Setting application permissions...'
-            chmod -R 775 storage bootstrap/cache
-            
-            echo '🗂️  Running database migrations...'
-            php artisan migrate --force
-            
-            echo '🧹 Clearing application cache...'
-            php artisan cache:clear
-            php artisan config:clear
-            php artisan view:clear
-            php artisan route:clear
-            
-            echo '⚡ Optimizing application...'
-            php artisan optimize
-            
-            echo '✅ Deployment completed successfully!'
-          "
 
   notify:
     runs-on: ubuntu-latest
@@ -104,9 +50,9 @@ jobs:
     steps:
       - name: Deployment Status
         run: |
-          if [ "${{ job.status }}" == "success" ]; then
-            echo "✅ Deployment to cbt.my360school.com succeeded!"
+          if [ "${{ needs.deploy.result }}" = "success" ]; then
+            echo "✅ Deployment webhook to cbt.my360school.com triggered successfully!"
           else
-            echo "❌ Deployment to cbt.my360school.com failed!"
+            echo "❌ Deployment webhook failed!"
             exit 1
           fi
