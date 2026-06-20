@@ -1,9 +1,15 @@
 <?php
 /**
  * GitHub Actions Webhook Deployment Script
- * 
- * Place this file in your project root: /home/pnzjqabw/cbt/deploy.php
- * 
+ *
+ * IMPORTANT: This file must live INSIDE the public/ folder, not the
+ * project root, because your root .htaccess rewrites every request to
+ * public/$1, and Laravel's public/.htaccess only serves a file directly
+ * if it physically exists there — otherwise it forwards to index.php
+ * and you get your app's own 404 page instead of this script running.
+ *
+ * Place this file at: /home/pnzjqabw/cbt/public/deploy.php
+ *
  * Webhook URL: https://cbt.my360school.com/deploy.php
  *
  * CHANGES FROM ORIGINAL:
@@ -13,11 +19,14 @@
  *   an "origin" remote, so you get a clear error instead of a false "success".
  * - JSON response now includes the tail of the log so you can see what
  *   happened just by visiting the URL in a browser.
+ * - PROJECT_ROOT is now dirname(__DIR__) since this script lives in public/
+ *   but git/composer/npm/artisan all need to run from the actual project root.
  */
 
 // Configuration
-define('LOG_FILE', __DIR__ . '/storage/logs/deployment.log');
-define('PROJECT_ROOT', __DIR__);
+// This file lives in public/, so the real project root is one level up.
+define('PROJECT_ROOT', dirname(__DIR__));
+define('LOG_FILE', PROJECT_ROOT . '/storage/logs/deployment.log');
 
 // Create log directory if needed
 @mkdir(dirname(LOG_FILE), 0755, true);
