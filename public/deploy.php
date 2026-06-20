@@ -72,6 +72,48 @@ function run_command($command, $description, $required = false) {
     return implode("\n", $output_lines);
 }
 
+/**
+ * Locate an executable's absolute path. PHP's exec()/shell_exec() run with
+ * a minimal PATH when triggered from a web request, so commands that work
+ * fine when you SSH in (composer, npm, sometimes even php) can come back
+ * "command not found" here even though they're installed on the server.
+ * This tries `which` first, then a few common cPanel/shared-hosting
+ * locations, and returns null if nothing is found.
+ */
+function find_executable($name, array $extra_candidates = []) {
+    $output = [];
+    $code = 0;
+    @exec("which $name 2>/dev/null", $output, $code);
+    if ($code === 0 && !empty($output[0]) && is_executable(trim($output[0]))) {
+        return trim($output[0]);
+    }
+
+    $candidates = array_merge($extra_candidates, [
+        "/usr/local/bin/$name",
+        "/usr/bin/$name",
+        "/bin/$name",
+        "/opt/cpanel/composer/bin/$name",
+    ]);
+
+    foreach ($candidates as $path) {
+        if ($path && is_executable($path)) {
+            return $path;
+        }
+    }
+
+    return null;
+}
+
+// ===== MANUAL OVERRIDES =====
+// If the auto-detection below can't find composer/npm/php, SSH in and run:
+//   which composer
+//   which npm
+//   which php
+// Paste the exact path(s) it gives you here. Leave as null to keep auto-detecting.
+const COMPOSER_BIN_OVERRIDE = null; // e.g. '/opt/cpanel/composer/bin/composer'
+const NPM_BIN_OVERRIDE = null;      // e.g. '/usr/bin/npm'
+const PHP_BIN_OVERRIDE = null;      // e.g. '/usr/local/bin/php'
+
 // Accept GET or POST requests
 if ($_SERVER['REQUEST_METHOD'] !== 'GET' && $_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -92,6 +134,16 @@ try {
     log_deployment("Current user: " . trim(shell_exec('whoami 2>&1')));
     log_deployment("PHP version: " . phpversion());
     log_deployment("Project root: " . PROJECT_ROOT);
+
+    // Resolve real, absolute paths to composer/npm/php since exec() often
+    // can't see them via bare command names from a web request.
+    $composer_bin = COMPOSER_BIN_OVERRIDE ?: find_executable('composer');
+    $npm_bin = NPM_BIN_OVERRIDE ?: find_executable('npm');
+    $php_bin = PHP_BIN_OVERRIDE ?: find_executable('php', [PHP_BINARY]);
+
+    log_deployment("Composer binary: " . ($composer_bin ?: '❌ NOT FOUND'));
+    log_deployment("npm binary: " . ($npm_bin ?: '❌ NOT FOUND'));
+    log_deployment("PHP CLI binary: " . ($php_bin ?: '❌ NOT FOUND'));
 
     // Check if we can change directory
     if (!chdir(PROJECT_ROOT)) {
@@ -155,7 +207,10 @@ try {
 
     if (file_exists('composer.json')) {
         log_deployment("✅ composer.json found");
-        run_command('composer install --no-dev --optimize-autoloader', 'Installing Composer dependencies', true);
+        if (!$composer_bin) {
+            throw new Exception("Composer binary not found anywhere on this server's PATH. SSH in, run 'which composer', and set COMPOSER_BIN_OVERRIDE near the top of this file to the path it gives you.");
+        }
+        run_command("$composer_bin install --no-dev --optimize-autoloader", 'Installing Composer dependencies', true);
     } else {
         log_deployment("⚠️  composer.json not found, skipping Composer");
     }
@@ -167,13 +222,16 @@ try {
 
     if (file_exists('package.json')) {
         log_deployment("✅ package.json found");
-        run_command('npm ci', 'Installing npm dependencies', true);
+        if (!$npm_bin) {
+            throw new Exception("npm binary not found anywhere on this server's PATH. SSH in, run 'which npm', and set NPM_BIN_OVERRIDE near the top of this file to the path it gives you. (If npm isn't installed at all on this shared host, you may need to build assets in GitHub Actions and commit the built files instead.)");
+        }
+        run_command("$npm_bin ci", 'Installing npm dependencies', true);
 
         // Step 4: Build frontend assets
         log_deployment("\n" . str_repeat("=", 60));
         log_deployment("STEP 4: Building frontend assets");
         log_deployment(str_repeat("=", 60));
-        run_command('npm run build', 'Building assets', true);
+        run_command("$npm_bin run build", 'Building assets', true);
     } else {
         log_deployment("⚠️  package.json not found, skipping npm");
     }
@@ -196,7 +254,8 @@ try {
     log_deployment(str_repeat("=", 60));
 
     if (file_exists('artisan')) {
-        run_command('php artisan migrate --force', 'Running Laravel migrations', true);
+        $php_cmd = $php_bin ?: 'php';
+        run_command("$php_cmd artisan migrate --force", 'Running Laravel migrations', true);
     } else {
         log_deployment("⚠️  artisan not found, skipping migrations");
     }
@@ -207,10 +266,11 @@ try {
     log_deployment(str_repeat("=", 60));
 
     if (file_exists('artisan')) {
-        run_command('php artisan cache:clear', 'Clearing cache', false);
-        run_command('php artisan config:clear', 'Clearing config cache', false);
-        run_command('php artisan view:clear', 'Clearing view cache', false);
-        run_command('php artisan route:clear', 'Clearing route cache', false);
+        $php_cmd = $php_bin ?: 'php';
+        run_command("$php_cmd artisan cache:clear", 'Clearing cache', false);
+        run_command("$php_cmd artisan config:clear", 'Clearing config cache', false);
+        run_command("$php_cmd artisan view:clear", 'Clearing view cache', false);
+        run_command("$php_cmd artisan route:clear", 'Clearing route cache', false);
         log_deployment("✅ Caches cleared");
     }
 
@@ -220,7 +280,8 @@ try {
     log_deployment(str_repeat("=", 60));
 
     if (file_exists('artisan')) {
-        run_command('php artisan optimize', 'Optimizing application', true);
+        $php_cmd = $php_bin ?: 'php';
+        run_command("$php_cmd artisan optimize", 'Optimizing application', true);
     }
 
     // Final status
