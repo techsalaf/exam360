@@ -18,6 +18,14 @@ jobs:
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
+          
+          # Check if secret exists
+          if [ -z "${{ secrets.NAMECHEAP_SSH_KEY }}" ]; then
+            echo "❌ ERROR: NAMECHEAP_SSH_KEY secret not found!"
+            echo "Add it at: https://github.com/techsalaf/exam360/settings/secrets/actions"
+            exit 1
+          fi
+          
           echo "${{ secrets.NAMECHEAP_SSH_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H cbt.my360school.com >> ~/.ssh/known_hosts
