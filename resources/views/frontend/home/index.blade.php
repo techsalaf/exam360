@@ -27,6 +27,16 @@
 
     $activeDesign = $rawSettings['active_homepage_design'] ?? 'design1';
 
+    // Design3 sections (Al-Qurraa' College specific)
+    $design3Sections = [
+        'navbar'                => true,
+        'hero'                  => 'frontend_show_hero',
+        'exams'                 => 'frontend_show_exams',
+        'achievements-explained' => true,
+        'how-it-works'          => 'frontend_show_how_it_works',
+        'footer'                => true,
+    ];
+
     // Removed 'admin-preview' and 'cms' from here if you don't want that dark gap section
     $sections = [
         'hero'          => 'frontend_show_hero',
@@ -49,15 +59,27 @@
                 <link rel="stylesheet" href="{{ asset('assets/frontend/css/design2/design2-'.$fileName.'.css') }}">
             @endif
         @endforeach
+    @elseif($activeDesign == 'design3')
+        <link rel="stylesheet" href="{{ asset('assets/frontend/css/design3/design3-main.css') }}">
     @else
         <link rel="stylesheet" href="{{ asset('assets/frontend/css/home-design1.css') }}">
     @endif
 @endpush
 
 @section('content')
-    @foreach($sections as $fileName => $toggleKey)
-        @if(($rawSettings[$toggleKey] ?? '1') == '1')
-            @includeIf("frontend.home.designs.{$activeDesign}.{$fileName}")
-        @endif
-    @endforeach
+    @if($activeDesign == 'design3')
+        {{-- Design3: Modern Exam Discovery Homepage --}}
+        @foreach($design3Sections as $fileName => $toggleKey)
+            @if($toggleKey === true || ($rawSettings[$toggleKey] ?? '1') == '1')
+                @includeIf("frontend.home.designs.design3.{$fileName}")
+            @endif
+        @endforeach
+    @else
+        {{-- Design1 and Design2 --}}
+        @foreach($sections as $fileName => $toggleKey)
+            @if(($rawSettings[$toggleKey] ?? '1') == '1')
+                @includeIf("frontend.home.designs.{$activeDesign}.{$fileName}")
+            @endif
+        @endforeach
+    @endif
 @endsection

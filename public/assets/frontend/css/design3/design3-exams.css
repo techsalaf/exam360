@@ -1,0 +1,363 @@
+/* ====================================================================
+   DESIGN3: EXAMS SECTION STYLES
+   ==================================================================== */
+
+.d3-exams-section {
+    background-color: var(--d3-bg-primary);
+    padding: 6rem 0;
+}
+
+.d3-exams-section .container {
+    max-width: 1400px;
+}
+
+/* Controls Section */
+.d3-exams-controls {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .d3-exams-controls {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+}
+
+/* Search Box */
+.d3-search-box-wrapper {
+    position: relative;
+    flex: 1;
+    min-width: 250px;
+}
+
+.d3-search-box {
+    width: 100%;
+    padding: 1rem 1.5rem 1rem 2.75rem;
+    background-color: var(--d3-bg-secondary);
+    border: 1px solid var(--d3-border);
+    border-radius: 0.75rem;
+    color: var(--d3-text-primary);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.d3-search-box::placeholder {
+    color: var(--d3-text-muted);
+}
+
+.d3-search-box:focus {
+    outline: none;
+    border-color: var(--d3-accent-emerald);
+    background-color: var(--d3-bg-tertiary);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.d3-search-box-wrapper i {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--d3-text-muted);
+    pointer-events: none;
+}
+
+/* Filter Tabs */
+.d3-filter-tabs {
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    padding: 0.5rem 0;
+
+    scrollbar-width: none; /* Firefox */
+}
+
+.d3-filter-tabs::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+}
+
+.d3-filter-tab {
+    padding: 0.75rem 1.5rem;
+    background-color: transparent;
+    border: 1px solid var(--d3-border);
+    border-radius: 9999px;
+    color: var(--d3-text-secondary);
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+}
+
+.d3-filter-tab:hover {
+    border-color: var(--d3-accent-emerald);
+    color: var(--d3-accent-emerald);
+}
+
+.d3-filter-tab.active {
+    background: linear-gradient(135deg, var(--d3-accent-emerald) 0%, var(--d3-accent-indigo) 100%);
+    border-color: transparent;
+    color: white;
+}
+
+/* Exams Grid */
+.d3-exams-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2rem;
+}
+
+@media (max-width: 1024px) {
+    .d3-exams-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .d3-exams-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Exam Card */
+.d3-exam-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--d3-bg-secondary);
+    border: 1px solid var(--d3-border);
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+.d3-exam-card {
+    animation-delay: calc(var(--index, 0) * 0.05s);
+}
+
+.d3-exam-card:hover {
+    border-color: var(--d3-accent-emerald);
+    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.15);
+    transform: translateY(-5px);
+}
+
+/* Card Banner */
+.d3-exam-card-banner {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--d3-bg-tertiary) 0%, var(--d3-bg-secondary) 100%);
+}
+
+.d3-banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.d3-exam-card:hover .d3-banner-img {
+    transform: scale(1.05);
+}
+
+.d3-banner-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(99, 102, 241, 0.1));
+    font-size: 4rem;
+    color: rgba(16, 185, 129, 0.3);
+}
+
+/* Status Badge */
+.d3-status-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    backdrop-filter: blur(10px);
+}
+
+.status-active {
+    background-color: rgba(16, 185, 129, 0.2);
+    color: var(--d3-accent-emerald);
+    border: 1px solid rgba(16, 185, 129, 0.5);
+}
+
+.status-upcoming {
+    background-color: rgba(245, 158, 11, 0.2);
+    color: var(--d3-accent-gold);
+    border: 1px solid rgba(245, 158, 11, 0.5);
+}
+
+.status-closed {
+    background-color: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.5);
+}
+
+/* Category Badge */
+.d3-category-badge {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: var(--d3-text-primary);
+    border-radius: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
+}
+
+/* Card Body */
+.d3-exam-card-body {
+    flex: 1;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.d3-exam-card-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--d3-text-primary);
+    line-height: 1.4;
+    margin: 0;
+}
+
+.d3-exam-card-description {
+    font-size: 0.875rem;
+    color: var(--d3-text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Meta Information */
+.d3-exam-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--d3-border);
+}
+
+.d3-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--d3-text-secondary);
+}
+
+.d3-meta-item i {
+    color: var(--d3-accent-emerald);
+}
+
+/* Card Footer */
+.d3-exam-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.5rem;
+    border-top: 1px solid var(--d3-border);
+}
+
+.d3-exam-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--d3-accent-emerald);
+}
+
+.d3-price-free {
+    color: var(--d3-accent-gold);
+}
+
+/* Empty State */
+.d3-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    grid-column: 1 / -1;
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.d3-empty-state i {
+    font-size: 4rem;
+    color: var(--d3-text-muted);
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.d3-empty-state h4 {
+    font-size: 1.5rem;
+    color: var(--d3-text-primary);
+    margin: 0 0 0.5rem 0;
+}
+
+.d3-empty-state p {
+    color: var(--d3-text-secondary);
+    margin: 0;
+}
+
+/* Skeleton Loader */
+.d3-exams-skeleton {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2rem;
+}
+
+.d3-exam-card-skeleton {
+    background-color: var(--d3-bg-secondary);
+    border: 1px solid var(--d3-border);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.d3-skeleton-banner {
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(90deg, var(--d3-bg-tertiary) 25%, var(--d3-border) 50%, var(--d3-bg-tertiary) 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+.d3-skeleton-title,
+.d3-skeleton-meta {
+    height: 1rem;
+    background: linear-gradient(90deg, var(--d3-bg-tertiary) 25%, var(--d3-border) 50%, var(--d3-bg-tertiary) 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    margin: 1rem;
+    border-radius: 0.25rem;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}

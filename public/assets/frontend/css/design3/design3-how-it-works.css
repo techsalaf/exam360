@@ -1,0 +1,195 @@
+/* ====================================================================
+   DESIGN3: HOW IT WORKS SECTION STYLES
+   ==================================================================== */
+
+.d3-how-it-works-section {
+    background-color: var(--d3-bg-primary);
+    padding: 6rem 0;
+}
+
+.d3-steps-container {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 1024px) {
+    .d3-steps-container {
+        flex-direction: column;
+        gap: 3rem;
+    }
+}
+
+/* Step Card */
+.d3-step-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+    min-width: 250px;
+    max-width: 320px;
+    position: relative;
+    z-index: 1;
+}
+
+@media (max-width: 1024px) {
+    .d3-step-card {
+        max-width: 100%;
+        flex-direction: row;
+        text-align: left;
+        gap: 2rem;
+        align-items: flex-start;
+    }
+}
+
+/* Step Number */
+.d3-step-number {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, var(--d3-accent-emerald) 0%, var(--d3-accent-indigo) 100%);
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+@media (max-width: 1024px) {
+    .d3-step-number {
+        margin-bottom: 0;
+        margin-right: 1rem;
+    }
+}
+
+.d3-step-number span {
+    font-size: 2rem;
+    font-weight: 800;
+    color: white;
+}
+
+/* Step Icon */
+.d3-step-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(16, 185, 129, 0.1);
+    border: 2px solid var(--d3-accent-emerald);
+    border-radius: 1rem;
+    font-size: 1.75rem;
+    color: var(--d3-accent-emerald);
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 1024px) {
+    .d3-step-icon {
+        margin-bottom: 0;
+    }
+}
+
+.d3-step-card:hover .d3-step-icon {
+    transform: scale(1.1);
+    background-color: rgba(16, 185, 129, 0.2);
+}
+
+/* Step Title */
+.d3-step-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--d3-text-primary);
+    margin-bottom: 0.75rem;
+}
+
+/* Step Description */
+.d3-step-description {
+    font-size: 0.9375rem;
+    color: var(--d3-text-secondary);
+    line-height: 1.7;
+}
+
+/* Arrows */
+.d3-step-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    color: var(--d3-accent-emerald);
+    opacity: 0.5;
+    animation: slideArrow 2s ease-in-out infinite;
+}
+
+@keyframes slideArrow {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(8px);
+    }
+}
+
+@media (max-width: 1024px) {
+    .d3-step-arrow {
+        display: none;
+    }
+}
+
+/* Connecting Line */
+.d3-steps-container::before {
+    content: '';
+    position: absolute;
+    top: 40px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, var(--d3-accent-emerald) 25%, var(--d3-accent-emerald) 75%, transparent 100%);
+    z-index: 0;
+}
+
+@media (max-width: 1024px) {
+    .d3-steps-container::before {
+        display: none;
+    }
+}
+
+/* ====================================================================
+   AL-QURRAA' COLLEGE SPECIFIC STYLES
+   ==================================================================== */
+
+.d3-how-it-works-alqurra {
+    background-color: #faf8f3;
+}
+
+.d3-how-it-works-alqurra .d3-section-title-alqurra {
+    color: #A23E48;
+}
+
+.d3-how-it-works-alqurra .d3-section-description-alqurra {
+    color: #8B6F47;
+}
+
+.d3-step-card-alqurra {
+    /* styling for Al-Qurraa' specific step cards */
+}
+
+.d3-step-number-alqurra {
+    background: linear-gradient(135deg, #A23E48 0%, #8B3A3A 100%);
+    color: white;
+}
+
+.d3-step-icon-alqurra-1,
+.d3-step-icon-alqurra-2,
+.d3-step-icon-alqurra-3 {
+    background: linear-gradient(135deg, rgba(162, 62, 72, 0.1) 0%, rgba(139, 111, 71, 0.1) 100%);
+    color: #A23E48;
+}
+
+.d3-step-arrow-alqurra {
+    color: #A23E48;
+}

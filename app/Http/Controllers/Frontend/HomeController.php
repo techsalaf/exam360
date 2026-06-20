@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Exam;
 use App\Models\Plan;
+use App\Models\Question;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -63,9 +64,30 @@ class HomeController extends Controller
             $examLimit = (int) ($rawSettings['exams_count'] ?? 3);
             $featuredExams = Exam::where('is_active', true)
                 ->with(['category'])
+                ->withCount('questions')
                 ->latest()
                 ->take($examLimit)
                 ->get();
+        }
+
+        // For design3 (modern): fetch all exams with statistics
+        $allExams = collect();
+        $totalExams = 0;
+        $totalQuestions = 0;
+        $activeExams = 0;
+        $registeredStudents = 0;
+
+        if (($rawSettings['active_homepage_design'] ?? 'design1') === 'design3') {
+            $allExams = Exam::where('is_active', true)
+                ->with(['category'])
+                ->withCount('questions')
+                ->orderBy('created_at', 'desc')
+                ->get();
+            
+            $totalExams = Exam::count();
+            $totalQuestions = Question::count();
+            $activeExams = Exam::where('is_active', true)->count();
+            $registeredStudents = DB::table('users')->where('is_banned', false)->count();
         }
         
         $plans = collect();
@@ -93,6 +115,11 @@ class HomeController extends Controller
             'rawSettings',
             'categories',
             'featuredExams',
+            'allExams',
+            'totalExams',
+            'totalQuestions',
+            'activeExams',
+            'registeredStudents',
             'plans',
             'testimonials'
         ));

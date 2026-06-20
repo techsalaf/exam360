@@ -40,6 +40,12 @@ class HomepageController extends Controller
                 'name' => 'Professional Academic',
                 'image' => 'assets/img/admin/designs/design2.png',
                 'desc' => 'Focused on structured categories and exam highlights.'
+            ],
+            [
+                'id' => 'design3',
+                'name' => 'Modern Exam Discovery',
+                'image' => 'assets/img/admin/designs/design3.png',
+                'desc' => 'Dark-themed modern exam discovery portal with advanced filtering and statistics.'
             ]
         ];
 

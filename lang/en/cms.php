@@ -26,6 +26,8 @@ return [
     'modern_saas_desc' => 'Clean layout with hero, features, and pricing sections.',
     'professional_academic' => 'Professional Academic',
     'professional_academic_desc' => 'Focused on structured categories and exam highlights.',
+    'modern_exam_discovery' => 'Modern Exam Discovery',
+    'modern_exam_discovery_desc' => 'Dark-themed modern exam discovery portal with advanced filtering and statistics.',
 
      'audience_section' => 'Audience Section',
     'main_heading' => 'Main Heading',

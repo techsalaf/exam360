@@ -52,13 +52,21 @@
     }
 @endphp
 
-    @include('frontend.partials.header')
+    @php
+        $activeDesign = $rawSettings['active_homepage_design'] ?? ($settings['active_homepage_design'] ?? 'design1');
+    @endphp
+
+    @if($activeDesign !== 'design3')
+        @include('frontend.partials.header')
+    @endif
 
     <main>
         @yield('content')
     </main>
 
-    @include('frontend.partials.footer')
+    @if($activeDesign !== 'design3')
+        @include('frontend.partials.footer')
+    @endif
 
     @php
         $layoutSettings = $settings ?? \App\Models\SystemSetting::pluck('value', 'key')->toArray();

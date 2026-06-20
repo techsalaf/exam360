@@ -1,0 +1,77 @@
+name: Deploy to Namecheap cPanel
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.NAMECHEAP_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H cbt.my360school.com >> ~/.ssh/known_hosts
+
+      - name: Deploy via SSH
+        run: |
+          ssh pnzjqabw@cbt.my360school.com "
+            set -e
+            
+            echo '📦 Navigating to project directory...'
+            cd /home/pnzjqabw/cbt
+            
+            echo '🔄 Pulling latest changes from GitHub...'
+            git fetch origin main
+            git reset --hard origin/main
+            
+            echo '📥 Installing PHP dependencies...'
+            composer install --no-dev --optimize-autoloader
+            
+            echo '📦 Installing Node dependencies...'
+            npm ci
+            
+            echo '🏗️  Building frontend assets...'
+            npm run build
+            
+            echo '🔑 Setting application permissions...'
+            chmod -R 775 storage bootstrap/cache
+            
+            echo '🗂️  Running database migrations...'
+            php artisan migrate --force
+            
+            echo '🧹 Clearing application cache...'
+            php artisan cache:clear
+            php artisan config:clear
+            php artisan view:clear
+            php artisan route:clear
+            
+            echo '⚡ Optimizing application...'
+            php artisan optimize
+            
+            echo '✅ Deployment completed successfully!'
+          "
+
+  notify:
+    runs-on: ubuntu-latest
+    needs: deploy
+    if: always()
+    
+    steps:
+      - name: Deployment Status
+        run: |
+          if [ "${{ job.status }}" == "success" ]; then
+            echo "✅ Deployment to cbt.my360school.com succeeded!"
+          else
+            echo "❌ Deployment to cbt.my360school.com failed!"
+            exit 1
+          fi
