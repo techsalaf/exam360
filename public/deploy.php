@@ -105,11 +105,9 @@ function find_executable($name, array $extra_candidates = []) {
 }
 
 // ===== MANUAL OVERRIDES =====
-// If the auto-detection below can't find npm/php, SSH in and run:
-//   which npm
+// If the auto-detection below can't find php, SSH in and run:
 //   which php
-// Paste the exact path(s) it gives you here. Leave as null to keep auto-detecting.
-const NPM_BIN_OVERRIDE = null;      // e.g. '/usr/bin/npm'
+// Paste the exact path it gives you here. Leave as null to keep auto-detecting.
 const PHP_BIN_OVERRIDE = null;      // e.g. '/usr/local/bin/php'
 
 // Accept GET or POST requests
@@ -133,12 +131,10 @@ try {
     log_deployment("PHP version: " . phpversion());
     log_deployment("Project root: " . PROJECT_ROOT);
 
-    // Resolve real, absolute paths to npm/php since exec() often
-    // can't see them via bare command names from a web request.
-    $npm_bin = NPM_BIN_OVERRIDE ?: find_executable('npm');
+    // Resolve real, absolute path to php since exec() often
+    // can't see it via a bare command name from a web request.
     $php_bin = PHP_BIN_OVERRIDE ?: find_executable('php', [PHP_BINARY]);
 
-    log_deployment("npm binary: " . ($npm_bin ?: '❌ NOT FOUND'));
     log_deployment("PHP CLI binary: " . ($php_bin ?: '❌ NOT FOUND'));
 
     // Check if we can change directory
@@ -231,26 +227,15 @@ try {
     log_deployment(str_repeat("=", 60));
     log_deployment("⏭️  Skipped intentionally - not reinstalling Composer dependencies on every deploy");
 
-    // Step 3: Install Node dependencies
+    // Step 3: Node dependencies / frontend build
+    // Intentionally skipped - same reasoning as Composer above. Assets are
+    // built manually when needed rather than on every deploy. Delete this
+    // comment block and restore the npm ci / npm run build calls below if
+    // that ever changes.
     log_deployment("\n" . str_repeat("=", 60));
-    log_deployment("STEP 3: Installing Node dependencies");
+    log_deployment("STEP 3: Node dependencies / frontend build");
     log_deployment(str_repeat("=", 60));
-
-    if (file_exists('package.json')) {
-        log_deployment("✅ package.json found");
-        if (!$npm_bin) {
-            throw new Exception("npm binary not found anywhere on this server's PATH. SSH in, run 'which npm', and set NPM_BIN_OVERRIDE near the top of this file to the path it gives you. (If npm isn't installed at all on this shared host, you may need to build assets in GitHub Actions and commit the built files instead.)");
-        }
-        run_command("$npm_bin ci", 'Installing npm dependencies', true);
-
-        // Step 4: Build frontend assets
-        log_deployment("\n" . str_repeat("=", 60));
-        log_deployment("STEP 4: Building frontend assets");
-        log_deployment(str_repeat("=", 60));
-        run_command("$npm_bin run build", 'Building assets', true);
-    } else {
-        log_deployment("⚠️  package.json not found, skipping npm");
-    }
+    log_deployment("⏭️  Skipped intentionally - not rebuilding frontend assets on every deploy");
 
     // Step 5: Set permissions
     log_deployment("\n" . str_repeat("=", 60));
