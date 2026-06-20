@@ -105,12 +105,10 @@ function find_executable($name, array $extra_candidates = []) {
 }
 
 // ===== MANUAL OVERRIDES =====
-// If the auto-detection below can't find composer/npm/php, SSH in and run:
-//   which composer
+// If the auto-detection below can't find npm/php, SSH in and run:
 //   which npm
 //   which php
 // Paste the exact path(s) it gives you here. Leave as null to keep auto-detecting.
-const COMPOSER_BIN_OVERRIDE = null; // e.g. '/opt/cpanel/composer/bin/composer'
 const NPM_BIN_OVERRIDE = null;      // e.g. '/usr/bin/npm'
 const PHP_BIN_OVERRIDE = null;      // e.g. '/usr/local/bin/php'
 
@@ -135,13 +133,11 @@ try {
     log_deployment("PHP version: " . phpversion());
     log_deployment("Project root: " . PROJECT_ROOT);
 
-    // Resolve real, absolute paths to composer/npm/php since exec() often
+    // Resolve real, absolute paths to npm/php since exec() often
     // can't see them via bare command names from a web request.
-    $composer_bin = COMPOSER_BIN_OVERRIDE ?: find_executable('composer');
     $npm_bin = NPM_BIN_OVERRIDE ?: find_executable('npm');
     $php_bin = PHP_BIN_OVERRIDE ?: find_executable('php', [PHP_BINARY]);
 
-    log_deployment("Composer binary: " . ($composer_bin ?: '❌ NOT FOUND'));
     log_deployment("npm binary: " . ($npm_bin ?: '❌ NOT FOUND'));
     log_deployment("PHP CLI binary: " . ($php_bin ?: '❌ NOT FOUND'));
 
@@ -181,6 +177,7 @@ try {
     log_deployment("Remotes:\n$remotes");
 
     // Current status before pulling
+    $commit_before_full = trim(shell_exec('git rev-parse HEAD 2>&1'));
     log_deployment("\nCurrent branch: " . trim(shell_exec('git branch --show-current 2>&1')));
     log_deployment("Last commit (before pull): " . trim(shell_exec('git log -1 --oneline 2>&1')));
 
@@ -198,22 +195,41 @@ try {
     run_command('git reset --hard origin/main', 'Resetting to origin/main', true);
 
     $commit_after = trim(shell_exec('git log -1 --oneline 2>&1'));
+    $commit_after_full = trim(shell_exec('git rev-parse HEAD 2>&1'));
     log_deployment("✅ Git pull complete. Now at: $commit_after");
 
-    // Step 2: Install PHP dependencies
-    log_deployment("\n" . str_repeat("=", 60));
-    log_deployment("STEP 2: Installing PHP dependencies");
-    log_deployment(str_repeat("=", 60));
-
-    if (file_exists('composer.json')) {
-        log_deployment("✅ composer.json found");
-        if (!$composer_bin) {
-            throw new Exception("Composer binary not found anywhere on this server's PATH. SSH in, run 'which composer', and set COMPOSER_BIN_OVERRIDE near the top of this file to the path it gives you.");
-        }
-        run_command("$composer_bin install --no-dev --optimize-autoloader", 'Installing Composer dependencies', true);
+    // Show exactly which files changed between the old and new commit
+    log_deployment("\n📂 FILES CHANGED:");
+    $changed_files = [];
+    if ($commit_before_full === $commit_after_full) {
+        log_deployment("   (no changes - already up to date)");
     } else {
-        log_deployment("⚠️  composer.json not found, skipping Composer");
+        $diff_output = trim(shell_exec("git diff --name-status $commit_before_full $commit_after_full 2>&1"));
+        if (empty($diff_output)) {
+            log_deployment("   (no file changes detected)");
+        } else {
+            $status_labels = ['A' => 'Added', 'M' => 'Modified', 'D' => 'Deleted'];
+            foreach (explode("\n", $diff_output) as $line) {
+                if (empty($line)) continue;
+                $parts = preg_split('/\s+/', $line, 2);
+                $code = $parts[0];
+                $file = $parts[1] ?? '';
+                $label = $status_labels[substr($code, 0, 1)] ?? $code; // handles R100, C100 etc.
+                log_deployment("   [$label] $file");
+                $changed_files[] = ['status' => $label, 'file' => $file];
+            }
+            log_deployment("   Total: " . count($changed_files) . " file(s) changed");
+        }
     }
+
+    // Step 2: PHP dependencies (Composer)
+    // Intentionally skipped - dependencies are stable and don't need to be
+    // reinstalled on every deploy. Delete this comment block and restore the
+    // composer install call below if that ever changes.
+    log_deployment("\n" . str_repeat("=", 60));
+    log_deployment("STEP 2: PHP dependencies (Composer)");
+    log_deployment(str_repeat("=", 60));
+    log_deployment("⏭️  Skipped intentionally - not reinstalling Composer dependencies on every deploy");
 
     // Step 3: Install Node dependencies
     log_deployment("\n" . str_repeat("=", 60));
@@ -296,6 +312,8 @@ try {
         'status' => 'success',
         'message' => 'Deployment completed successfully',
         'commit' => $commit_after,
+        'files_changed' => $changed_files,
+        'files_changed_count' => count($changed_files),
         'timestamp' => date('Y-m-d H:i:s'),
         'log_file' => LOG_FILE
     ]);
