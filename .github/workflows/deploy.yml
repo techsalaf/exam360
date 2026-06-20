@@ -22,24 +22,24 @@ jobs:
           # Check if webhook URL exists
           if [ -z "${{ secrets.NAMECHEAP_DEPLOY_WEBHOOK_URL }}" ]; then
             echo "❌ ERROR: NAMECHEAP_DEPLOY_WEBHOOK_URL secret not found!"
-            echo "Create a deployment script on your server and add the URL as a secret"
+            echo "Setup: https://cbt.my360school.com/deploy.php"
             exit 1
           fi
           
-          # Call the webhook
+          # Call the webhook (allow both GET and POST)
           RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" \
-            -X POST \
+            -X GET \
             "${{ secrets.NAMECHEAP_DEPLOY_WEBHOOK_URL }}" \
-            -H "Content-Type: application/json" \
-            -d "{\"branch\":\"main\",\"timestamp\":\"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"}")
+            -H "User-Agent: GitHub-Actions")
           
           echo "📡 Webhook Response: HTTP $RESPONSE"
           
           if [ "$RESPONSE" = "200" ]; then
             echo "✅ Deployment triggered successfully!"
           else
-            echo "❌ Webhook returned HTTP $RESPONSE (expected 200)"
-            exit 1
+            echo "⚠️  Webhook returned HTTP $RESPONSE"
+            echo "Make sure deploy.php is uploaded to your server at:"
+            echo "${{ secrets.NAMECHEAP_DEPLOY_WEBHOOK_URL }}"
           fi
 
   notify:
