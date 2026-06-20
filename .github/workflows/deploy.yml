@@ -17,21 +17,48 @@ jobs:
 
       - name: Setup SSH
         run: |
+          set -x
           mkdir -p ~/.ssh
           
-          # Check if secret exists
+          # Check if secret exists and has content
           if [ -z "${{ secrets.NAMECHEAP_SSH_KEY }}" ]; then
-            echo "❌ ERROR: NAMECHEAP_SSH_KEY secret not found!"
+            echo "❌ ERROR: NAMECHEAP_SSH_KEY secret not found or empty!"
             echo "Add it at: https://github.com/techsalaf/exam360/settings/secrets/actions"
             exit 1
           fi
           
+          echo "✅ Secret found, writing SSH key..."
           echo "${{ secrets.NAMECHEAP_SSH_KEY }}" > ~/.ssh/id_rsa
+          
+          # Verify key was written
+          if [ ! -f ~/.ssh/id_rsa ]; then
+            echo "❌ ERROR: SSH key file not created!"
+            exit 1
+          fi
+          
+          # Verify key is not empty
+          if [ ! -s ~/.ssh/id_rsa ]; then
+            echo "❌ ERROR: SSH key file is empty!"
+            exit 1
+          fi
+          
+          echo "✅ SSH key written successfully"
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H cbt.my360school.com >> ~/.ssh/known_hosts
+          
+          echo "✅ Scanning host key for cbt.my360school.com..."
+          ssh-keyscan -H cbt.my360school.com >> ~/.ssh/known_hosts 2>&1 || {
+            echo "⚠️ Warning: ssh-keyscan failed, but continuing..."
+          }
+          
+          echo "✅ SSH setup complete"
 
       - name: Deploy via SSH
         run: |
+          set -x
+          echo "🔍 Checking SSH connection..."
+          ssh -v pnzjqabw@cbt.my360school.com "echo '✅ SSH connection successful'"
+          
+          echo "🚀 Starting deployment..."
           ssh pnzjqabw@cbt.my360school.com "
             set -e
             
